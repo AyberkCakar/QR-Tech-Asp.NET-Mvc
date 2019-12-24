@@ -1,0 +1,58 @@
+﻿@model QRTech.Models.Line
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Hat Silme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Hat Silme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Hat Sil</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("LineDelete", "Line", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="uname">Hat ID:</label>
+                        @Html.TextBox("HatID", @Model.HatID, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Hat Adı:</label>
+                        @Html.TextBox("HatNo", @Model.HatNo, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Sil</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#searchInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#listTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

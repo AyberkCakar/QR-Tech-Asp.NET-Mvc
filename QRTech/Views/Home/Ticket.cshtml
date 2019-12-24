@@ -1,0 +1,33 @@
+﻿@model QRTech.Models.User
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Ödeme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Ödeme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="text-center font-weight-bold" style="color:firebrick">Ödeme İşleme</h3>
+        <br>
+
+        @using (Html.BeginForm("Ticket", "Home", FormMethod.Post))
+        {
+            <form action="" class="was-validated"></form>
+            <input id="fu" runat="server" accept="image/*;capture=camera" name="upload" type="file"> </input>
+
+        }
+
+    </div>
+</div>

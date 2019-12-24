@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <META http-equiv=content-type content=text/html;charset =iso-8859-9>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Hat İşlemleri</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/style4.css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>QR Tech Admin</h3>
+                <strong>QR</strong>
+            </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                <li>
+                    <a id="clickMainPage" href="/Admin/Index/"><i class="fas fa-bus"></i> Ana Sayfa</a>
+                </li>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-list"></i> Hat</a>
+
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a id="clickListRoute" href="/Line/Index/"><i class="fas fa-list"></i> Hatları Listele</a>
+                        </li>
+                        <li>
+                            <a id="clickAddRoute" href="/Line/LineCreate/" ><i class="fas fa-plus-circle"></i> Hat Ekle</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-map-signs"></i> Durak</a>
+
+                    <ul class="collapse list-unstyled" id="homeSubmenu1">
+                        <li>
+                            <a id="clickListStation" href="/Station/Index/" ><i class="fas fa-map-signs"></i> Durak Listele</a>
+                        </li>
+                        <li>
+                            <a id="clickAddStation" href="/Station/StationCreate/" ><i class="fas fa-sign"></i> Durak Ekle</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                <li>
+                    <a id="clickAddDiscount" href="/Admin/DiscountEdit/ "><i class="fas fa-tags"></i> İndirim Belirle</a>
+                </li>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-bus"></i> Araç</a>
+
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a id="clickListBus" href="/Vehicle/Index/"><i class="fas fa-bus"></i> Araç Listele</a>
+                        </li>
+                        <li>
+                            <a id="clickAddBus" href="/Vehicle/VehicleCreate/"><i class="fas fa-plus-circle"></i> Araç Ekle</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-users"></i> Söför</a>
+
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a id="clickListDriver" href="/Driver/Index/ "><i class="fas fa-users"></i> Şöför Listele</a>
+                        </li>
+                        <li>
+                            <a id="clickAddDriver" href="/Driver/DriverCreate/"><i class="fas fa-user-plus"></i> Şöför Ekle</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                        <i class="fa fa-book"></i>
+                        <span>Menüyü göster/gizle</span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/Admin/Login/" uiactions="delete">Çıkış</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Page</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Page</a>
+                    </li>
+                </ul>
+            </div>
+
+            @RenderBody()
+        </div>
+        
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+            $("#searchInput").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#listTable tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

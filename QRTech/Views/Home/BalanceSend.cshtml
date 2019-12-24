@@ -1,0 +1,46 @@
+﻿@model QRTech.Models.User
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Para Gönderme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Para Gönderme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="text-center font-weight-bold" style="color:firebrick">QR Tech Bakiye Gönderme</h3>
+        <br>
+        @using (Html.BeginForm("BalanceSend", "Home", FormMethod.Post))
+        {
+            <form action="" class="was-validated">
+
+                <div class="form-group">
+                    <label class="font-weight-bold">Ad Soyad:  @Model.AD  @Model.Soyad </label><br><br>
+                    <label for="uname">TC Kimlik Numarası:</label>
+                    @Html.TextBox("TC", "", new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="drop_list">Göndermek istediğiniz tutarı seçiniz:</label>
+                    @Html.TextBox("Bakiye", "", new { @class = "form-control" })
+
+                </div>
+
+                <button type="submit" class="btn btn-success">Bakiye Gönder</button>
+
+            </form>
+
+        }
+    </div>
+</div>
+

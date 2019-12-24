@@ -1,0 +1,116 @@
+﻿@model  QRTech.Models.User
+@{
+    ViewBag.Title = "Index";
+}
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Bilgileriniz Başarıyla Değişti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Bilgi Değiştirme Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="text-center font-weight-bold" style="color:firebrick">Kullanıcı bilgilerinizi görüntüleyin ve güncelleyin</h3>
+        <br>
+        @using (Html.BeginForm("InformationUpdate", "Home", FormMethod.Post))
+        {
+            <form action="" class="was-validated">
+                <div class="form-group">
+                    <label class="font-weight-bold">Kullanıcı Adı / TC Kimlik No: &ensp;  @Model.TC</label><br><br>
+                </div>
+
+                <div class="form-group">
+                    <label for="e-mail">E-mail:</label>
+                    @Html.TextBox("Mail", Model.Mail, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="telNo">Telefon Numarası:</label>
+                    @Html.TextBox("Telefon", Model.Telefon, new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="text">Adres:</label>
+                    @if (Model.Adres != null)
+                    {
+                        @Html.TextBox("Adres", Model.Adres, new { @class = "form-control" })
+                    }
+                    else
+                    {
+                        @Html.TextBox("Adres", null, new { @class = "form-control" })
+                    }
+
+                </div>
+
+                <button type="submit" class="btn btn-success"> Bilgileri Güncelle</button>
+
+
+
+                <br><br><br><br>
+                <button id="clickStats" type="button" class="btn btn-primary">Yolculuk İstatistiklerini Göster/Gizle</button>
+
+
+                <div id="contentTable">
+
+                    <h2 style="padding: 20;">  Yolcu İstatistiği</h2>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Arama Yap:<input id="searchInput" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="listTable" style="width:100%" class="table table-striped table-bordered">
+
+                            <thead>
+                                <tr>
+                                    <th>Hat No</th>
+                                    <th>İl</th>
+                                    <th>Başlangıç</th>
+                                    <th>Bitiş</th>
+                                    <th>Tarih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var log in Model._UserLogs)
+                                {
+                                    if (log == null)
+                                    {
+                                        <tr>
+                                            Seyehat Bilgisi Bulunamadı...
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td>@log.line.HatNo</td>
+                                            <td>@log.line.ilAD</td>
+                                            <td>@log.line.BaslangıçDurak</td>
+                                            <td>@log.line.BitişDurak</td>
+                                            <td>@log.Tarih</td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </form>
+        }
+    </div>
+</div>
+
+

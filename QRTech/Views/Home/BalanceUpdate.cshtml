@@ -1,0 +1,87 @@
+﻿@model QRTech.Models.User
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Yükleme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Yükleme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div id="content">
+    <div class="container-fluid">
+        <h3 class="text-center font-weight-bold" style="color:firebrick">QR Tech Bakiye Yükleme</h3>
+        <br>
+        @using (Html.BeginForm("BalanceUpdate", "Home", FormMethod.Post))
+        {
+            <form action="" class="was-validated">
+
+                <div class="form-group">
+                    <label class="font-weight-bold">Ad Soyad:  @Model.AD  @Model.Soyad</label><br><br>
+                    <label for="uname">TC Kimlik Numarası:</label>
+                    @Html.TextBox("TC", "", new { @class = "form-control" })
+                </div>
+
+                <div class="form-group">
+                    <label for="drop_list">Yüklemek istediğiniz tutarı seçiniz:</label>
+                    @Html.TextBox("Bakiye", "", new { @class = "form-control" })
+
+                </div>
+
+                <label for="eposta_input">Kart No:</label>
+
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        @Html.TextBox("KKNo1", "", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBox("KKNo2", "", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBox("KKNo3", "", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBox("KKNo4", "", new { @class = "form-control" })
+                    </div>
+                </div>
+                <label for="eposta_input">Kart Sahibi Ad Soyad:</label>
+
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        @Html.TextBox("KKSahip", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <label for="eposta_input">Son Kullanma Tarihi:</label>
+                <div class="form-group row">
+                    <div class="col-md-1">
+                        @Html.TextBox("KKSonTarihAy", "Ay", new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-1">
+                        @Html.TextBox("KKSonTarihYıl", "Yıl", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <label for="eposta_input">CVV:</label>
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.TextBox("KKCVV", "", new { @class = "form-control" })
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Bakiye Yükle</button>
+            </form>
+
+        }
+    </div>
+</div>
+

@@ -1,0 +1,76 @@
+﻿@using QRTech.Models
+@model Tuple<Line, Vehicle>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Araç Ekleme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Araç Ekleme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Araç Ekle</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("VehicleCreate", "Vehicle", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Plaka:</label>
+                        @Html.TextBoxFor(m => m.Item2.Plaka, null, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Marka:</label>
+                        @Html.TextBoxFor(m => m.Item2.AracMarka, null, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Model:</label>
+                        @Html.TextBoxFor(m => m.Item2.Model, null, new { @class = "form-control" })
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Renk:</label>
+                        @Html.TextBoxFor(m => m.Item2.Renk, null, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Şase Numarası:</label>
+                        @Html.TextBoxFor(m => m.Item2.saseNumarasi, null, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="drop_list">Engelli Desteği:</label>
+                        @Html.TextBoxFor(m => m.Item2.engelliDestegi, null, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="drop_list">Kullanıldığı Hat:</label>
+                        @Html.TextBoxFor(m => m.Item1.HatNo, null, new { @class = "form-control" })
+
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Aracı Ekle</button>
+                </form>
+            }
+
+        </div>
+    </div>
+</div>

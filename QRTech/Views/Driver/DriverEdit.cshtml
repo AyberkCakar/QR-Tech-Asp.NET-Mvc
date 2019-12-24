@@ -1,0 +1,94 @@
+﻿@model QRTech.Models.Driver
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Şoför Bilgisi Güncelleme Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Şoför Bilgisi Güncelleme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Söför Düzenle</h2>
+        <div class="container-fluid">
+            @using (Html.BeginForm("DriverEdit", "Driver", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="e-posta">Şoför ID:</label>
+                        @Html.TextBox("soforID", @Model.soforID, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Şoför Adı:</label>
+                        @Html.TextBox("AD", @Model.AD, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Soyadı:</label>
+                        @Html.TextBox("Soyad", @Model.Soyad, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">TC:</label>
+                        @Html.TextBox("TC", @Model.TC, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Ehliyet Seri No:</label>
+                        @Html.TextBox("ehliyetSeriNo", @Model.ehliyetSeriNo, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Maaş:</label>
+                        @Html.TextBox("Maas", @Model.Maas, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Kullandığı Araç Plaka:</label>
+                        @Html.TextBox("AracPlaka", @Model.AracPlaka, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Sürdüğü Hat:</label>
+                        @Html.TextBox("HatNo", @Model.HatNo, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Telefon:</label>
+                        @Html.TextBox("Telefon", @Model.Telefon, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Mail:</label>
+                        @Html.TextBox("Mail", @Model.Mail, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="drop_list">Adres:</label>
+                        @Html.TextBox("Adres", @Model.Adres, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Güncelle</button>
+                </form>
+            }
+
+        </div>
+    </div>
+</div>

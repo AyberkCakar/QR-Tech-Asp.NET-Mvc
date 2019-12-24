@@ -1,0 +1,59 @@
+﻿@model List<QRTech.Models.Driver>
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="wrapper">
+
+    <!-- Page Content  -->
+    <div id="content">
+
+        <h2 style="padding: 20;">  Şöför Listesi</h2>
+        <br />
+        <div class="row">
+
+            <div class="col-md-6">
+                <label>Search:<input id="searchInput" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="listTable" style="width:100%" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Şöför ID</th>
+                        <th>İsim Soyisim</th>
+                        <th>TC</th>
+                        <th>Ehliyet Seri No</th>
+                        <th>Kullandığı Araç</th>
+                        <th>Sürdüğü Hat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.soforID</td>
+                                <td>@item.AD  @item.Soyad </td>
+                                <td>@item.TC</td>
+                                <td>@item.ehliyetSeriNo</td>
+                                <td>@item.AracPlaka</td>
+                                <td>@item.HatNo</td>
+                                <td>
+                                    @Html.ActionLink("Güncelle", "DriverEdit", new { id = item.soforID }, new { @class = "btn btn-primary btn-sm" })
+                                    @Html.ActionLink("Sil", "DriverDelete", new { id = item.soforID }, new { @class = "btn btn-danger btn-sm" })
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
