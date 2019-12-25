@@ -16,5 +16,8 @@ namespace QRTech.Models
         public string Model { get; set; }
 
         public int HatNo { get; set; }
+        private void Code()
+        {
+        }
     }
 }

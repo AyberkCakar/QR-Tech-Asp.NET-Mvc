@@ -2,6 +2,24 @@
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        İndirim İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        İndirim İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
 <div class="wrapper">
 
     <div id="content">

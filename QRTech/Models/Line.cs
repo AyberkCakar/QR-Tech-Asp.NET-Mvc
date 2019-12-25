@@ -12,7 +12,6 @@ namespace QRTech.Models
         public double KazanılanTutar { get; set; }
         public string BaslangıçDurak { get; set; }
         public string BitişDurak { get; set; }
-        public string QRKod { get; set; }
         public string ilAD { get; set; }
         public int ogrenciFiyat { get; set; }
         public int tamFiyat { get; set; }

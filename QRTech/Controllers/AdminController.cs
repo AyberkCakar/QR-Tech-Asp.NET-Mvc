@@ -18,8 +18,18 @@ namespace QRTech.Controllers
         [HttpPost]
         public ActionResult DiscountEdit(Price Entity)
         {
-            AdminDatabase.LineDiscount(Entity);
-            return View();
+            int islem = 0;
+            try
+            {
+                AdminDatabase.LineDiscount(Entity);
+                ViewBag.islem = 1;
+                return View(Entity);
+            }
+            catch (Exception)
+            {
+                ViewBag.islem = -1;
+                return View(Entity);
+            }
         }
 
         [HttpGet]

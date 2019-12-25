@@ -168,7 +168,7 @@ namespace QRTech.Models
         {
             _station.Clear();
             Province province = new Province();
-            SqlCommand ProvinceGet = new SqlCommand("select D.ilceID from TBL_Durak D inner join TBL_Ilce I on D.ilceID = ı.ilceID  where ı.ilID = @p1 group by D.ilceID", sql.baglanti());
+            SqlCommand ProvinceGet = new SqlCommand("select D.ilceID from TBL_Durak D inner join TBL_Ilce I on D.ilceID = I.ilceID  where I.ilID = @p1 group by D.ilceID", sql.baglanti());
             ProvinceGet.Parameters.AddWithValue("@p1", _admin.ilID);
             SqlDataReader dtTown = ProvinceGet.ExecuteReader();
             while (dtTown.Read())
@@ -180,7 +180,7 @@ namespace QRTech.Models
             }
             foreach (Town town in province.Town)
             {
-                SqlCommand StationGet = new SqlCommand("select d.durakID,D.durakAdi,ı.ilceAdi,D.enlem,D.boylam from TBL_Durak D inner join TBL_Ilce I on ı.ilceID = D.ilceID where D.ilceID =@p1", sql.baglanti());
+                SqlCommand StationGet = new SqlCommand("select D.durakID,D.durakAdi,I.ilceAdi,D.enlem,D.boylam from TBL_Durak D inner join TBL_Ilce I on I.ilceID = D.ilceID where D.ilceID =@p1", sql.baglanti());
                 StationGet.Parameters.AddWithValue("@p1", town.ilceID);
                 SqlDataReader dtStation = StationGet.ExecuteReader();
                 while (dtStation.Read())
@@ -204,7 +204,7 @@ namespace QRTech.Models
 
         public static Station StationFind(int stationID)
         {
-            SqlCommand StationFind = new SqlCommand("select d.durakID,D.durakAdi,ı.ilceAdi,D.enlem,D.boylam from TBL_Durak D inner join TBL_Ilce I on ı.ilceID = D.ilceID where D.durakID =@p1", sql.baglanti());
+            SqlCommand StationFind = new SqlCommand("select D.durakID,D.durakAdi,I.ilceAdi,D.enlem,D.boylam from TBL_Durak D inner join TBL_Ilce I on I.ilceID = D.ilceID where D.durakID =@p1", sql.baglanti());
             StationFind.Parameters.AddWithValue("@p1", stationID);
             SqlDataReader dtStation = StationFind.ExecuteReader();
             if (dtStation.Read())
@@ -259,7 +259,7 @@ namespace QRTech.Models
                 Entity.BitişDurak = dtLineDurak1[0].ToString();
             }
 
-            SqlCommand lineAdd1 = new SqlCommand("insert into TBL_Hat (hatAdi,kazanilanTutar,fiyatID,baslangicDurak,bitisDurak,ilID,QRKod) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7)", sql.baglanti());
+            SqlCommand lineAdd1 = new SqlCommand("insert into TBL_Hat (hatAdi,kazanilanTutar,fiyatID,baslangicDurak,bitisDurak,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6)", sql.baglanti());
             lineAdd1.Parameters.AddWithValue("@p1", Entity.HatNo);
             lineAdd1.Parameters.AddWithValue("@p2", 0);
             lineAdd1.Parameters.AddWithValue("@p3", Entity1.fiyatID);
@@ -279,12 +279,11 @@ namespace QRTech.Models
             lineUpdate.ExecuteNonQuery();
             sql.baglanti().Close();
 
-            SqlCommand lineUpdate1 = new SqlCommand("update TBL_Hat set hatAdi = @p2 ,baslangicDurak =(SELECT durakID from TBL_Durak where durakAdi =@p3),bitisDurak =(SELECT durakID from TBL_Durak where durakAdi =@p4),QRKod =@p5 where hatID = @p1", sql.baglanti());
+            SqlCommand lineUpdate1 = new SqlCommand("update TBL_Hat set hatAdi = @p2 ,baslangicDurak =(SELECT durakID from TBL_Durak where durakAdi =@p3),bitisDurak =(SELECT durakID from TBL_Durak where durakAdi =@p4) where hatID = @p1", sql.baglanti());
             lineUpdate1.Parameters.AddWithValue("@p1", Entity.HatID);
             lineUpdate1.Parameters.AddWithValue("@p2", Entity.HatNo);
             lineUpdate1.Parameters.AddWithValue("@p3", Entity.BaslangıçDurak);
             lineUpdate1.Parameters.AddWithValue("@p4", Entity.BitişDurak);
-            lineUpdate1.Parameters.AddWithValue("@p5", 123123);
             lineUpdate1.ExecuteNonQuery();
             sql.baglanti().Close();
         }
