@@ -66,23 +66,55 @@ namespace QRTech.Models
             sql.baglanti().Close();
         }
 
-        public static bool UserPayment(User Entity, string QRCode)
+        public static void UserPayment(User Entity, int hatID)
         {
-            bool durum=false;
-            SqlCommand UserPayment = new SqlCommand("select ..... where QRCode = @p1 ", sql.baglanti());
-            UserPayment.Parameters.AddWithValue("@p1", QRCode);
-            SqlDataReader dtUserPayment = UserPayment.ExecuteReader();
-            if (dtUserPayment.Read())
+            SqlCommand User = new SqlCommand("select yolcuStatusu from TBL_Kullanici where tc = @p1 ", sql.baglanti());
+            User.Parameters.AddWithValue("@p1",Entity.TC);
+            SqlDataReader dtUser = User.ExecuteReader();
+            if (dtUser.Read())
             {
                 User user = new User();
-                user.Bakiye = user.Bakiye-Convert.ToInt32(dtUserPayment[0]); // bakiyeyi çıkar
-                //BalanceUpdate(user);
-                return durum = true;
+                user.yolcuTip = Convert.ToInt32(dtUser[0]);
+
+                SqlCommand UserPayment = new SqlCommand("select F.ogrenciFiyat,F.ogrenciOran,F.tamFiyat,F.tamOran,F.engelliFiyat,F.engelliOran,F.yasliFiyat,F.yasliOran,H.hatID  from TBL_Hat H inner join TBL_Fiyatlar F on F.fiyatID = H.fiyatID where hatID = @p2 ", sql.baglanti());
+                UserPayment.Parameters.AddWithValue("@p2", hatID);
+                SqlDataReader dtUserPayment = UserPayment.ExecuteReader();
+                if (dtUserPayment.Read())
+                {
+                    if (Convert.ToInt32(dtUser[0]) == 1)
+                    {
+                        Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[0]) * Convert.ToDouble(dtUserPayment[1]));
+                        double i =(Convert.ToDouble(dtUserPayment[0]) * Convert.ToDouble(dtUserPayment[1]));
+                    }
+                    else if (Convert.ToInt32(dtUser[0]) == 2)
+                    {
+                        Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[2]) * Convert.ToDouble(dtUserPayment[3]));
+                    }
+                    else if (Convert.ToInt32(dtUser[0]) == 3)
+                    {
+                        Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[4]) * Convert.ToDouble(dtUserPayment[5]));
+                    }
+                    else
+                    {
+                        Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[6]) * Convert.ToDouble(dtUserPayment[7]));
+                    }
+
+                    SqlCommand payUp = new SqlCommand("update TBL_Kullanici set bakiye=@p2 where tc=@p1", sql.baglanti());
+                    payUp.Parameters.AddWithValue("@p1", Entity.TC);
+                    payUp.Parameters.AddWithValue("@p2", Entity.Bakiye);
+                    payUp.ExecuteNonQuery();
+                    sql.baglanti().Close();
+
+                    SqlCommand userLog = new SqlCommand("insert into TBL_KullaniciLog (tarih,hatID,kullaniciID) values (@p3,@p4,@p5)", sql.baglanti());
+                    userLog.Parameters.AddWithValue("@p3", DateTime.Now);
+                    userLog.Parameters.AddWithValue("@p4", Convert.ToInt32(dtUserPayment[8]));
+                    userLog.Parameters.AddWithValue("@p5", Entity.kullanıcıID);
+                    userLog.ExecuteNonQuery();
+                    sql.baglanti().Close();
+                   
+                }
             }
-            else
-            {
-                return durum = false;
-            }
+            UserControl(Entity);
         }
 
         public static bool UserControl(User Entity)

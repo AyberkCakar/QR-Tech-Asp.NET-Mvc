@@ -15,7 +15,6 @@ namespace QRTech.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            UserDataBase.UserControl(user);
             user = UserDataBase.GetUser;
             return View(user);
         }
@@ -58,8 +57,13 @@ namespace QRTech.Controllers
             entity.kullanıcıID = user.kullanıcıID;
             try
             {
-                UserDataBase.BalanceSend(entity);
-                islem = 1;
+                if (UserDataBase.GetUser.Bakiye >= entity.Bakiye)
+                {
+                    UserDataBase.BalanceSend(entity);
+                    islem = 1;
+                }
+                else
+                    islem = -1;
             }
             catch (Exception)
             {
@@ -134,15 +138,29 @@ namespace QRTech.Controllers
         public ActionResult Ticket()
         {
             user.islem = 0;
-            return View(user);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Ticket(User entity)
+        public ActionResult Ticket(string qrCode )
         {
             int islem = 0;
+            try
+            {
+                int hatID;
+                hatID=Convert.ToInt32(qrCode);
+                UserDataBase.UserPayment(user, hatID);
+                islem = 1;
+                user = UserDataBase.GetUser;
+
+            }
+            catch (Exception)
+            {
+                islem = -1;
+            }
+
             ViewBag.islem = islem;
-            return View(user);
+            return View();
         }
 
         public ActionResult Login()
