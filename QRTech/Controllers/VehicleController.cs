@@ -18,26 +18,52 @@ namespace QRTech.Controllers
         }
         
         [HttpPost]
-        public ActionResult VehicleCreate([Bind(Prefix = "Item1")]Line Model1, [Bind(Prefix = "Item2")]Vehicle Model2)
+        public ActionResult VehicleCreate(Vehicle Entity)
         {
-            AdminDatabase.VehicleAdd(Model1,Model2);
-            return View();
+            int islem = 0;
+            bool durum = TFuncAdmin.AracEkleKontrol(Entity.Plaka, Entity.AracMarka, Entity.Model, Entity.Renk, Entity.saseNumarasi, Entity.HatNo);
+            try
+            {
+                if (durum == true)
+                {
+                    AdminDatabase.VehicleAdd(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.islem = -1;
+                return View();
+            }
         }
         public ActionResult VehicleCreate()
         {
-            return View(Tuple.Create<Line, Vehicle>(new Line(), new Vehicle()));
+
+            return View();
         }
 
         [HttpPost]
         public ActionResult VehicleEdit(Vehicle Entity)
         {
             int islem = 0;
+            bool durum = TFuncAdmin.AracGuncelleKontrol(Entity.Plaka, Entity.AracMarka, Entity.Model, Entity.Renk, Entity.saseNumarasi, Entity.HatNo, Entity.aracID);
             try
             {
-                AdminDatabase.VehicleUpdate(Entity);
-                ViewBag.islem = 1;
-                Vehicle vehicle = new Vehicle();
-                return View(vehicle);
+                if (durum == true)
+                {
+                    AdminDatabase.VehicleUpdate(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+                return View();
             }
             catch (Exception)
             {

@@ -18,9 +18,26 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult DriverCreate([Bind(Prefix = "Item1")]Driver Model1, [Bind(Prefix = "Item2")]Vehicle Model2)
+        public ActionResult DriverCreate(Driver Entity)
         {
-            AdminDatabase.DriverAdd(Model1,Model2);
+            int islem = 0;
+            bool durum = TFuncAdmin.SoforEkleKontrol(Entity.AD, Entity.Soyad, Entity.TC, Entity.ehliyetSeriNo, Entity.Maas, Entity.AracPlaka, Entity.Telefon, Entity.Mail, Entity.Adres);
+            try
+            {
+                if (durum == true)
+                {
+                    AdminDatabase.DriverAdd(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                    ViewBag.islem = -1;
+
+            }
+            catch (Exception)
+            {
+                ViewBag.islem = -1;
+            }
+
             return View();
         }
 
@@ -33,10 +50,17 @@ namespace QRTech.Controllers
         public ActionResult DriverEdit(Driver Entity)
         {
             int islem = 0;
+            bool durum = TFuncAdmin.SoforGuncelleKontrol(Entity.AD, Entity.Soyad, Entity.TC, Entity.ehliyetSeriNo, Entity.Maas, Entity.AracPlaka, Entity.Telefon, Entity.Mail, Entity.Adres,Entity.soforID);
             try
             {
-                AdminDatabase.DriverUpdate(Entity);
-                ViewBag.islem = 1;
+                if (durum == true)
+                {
+                    AdminDatabase.DriverUpdate(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                    ViewBag.islem = -1;
+
                 return View(Entity);
             }
             catch (Exception)

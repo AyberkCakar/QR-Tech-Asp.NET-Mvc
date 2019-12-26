@@ -20,8 +20,27 @@ namespace QRTech.Controllers
         [HttpPost]
         public ActionResult StationCreate(Station Entity)
         {
-            AdminDatabase.StationAdd(Entity);
-            return View();
+            int islem = 0;
+            bool durum = TFuncAdmin.DurakEkleKontrol(Entity.durakAD, Entity.ilceAdi, Entity.enlem, Entity.boylam);
+
+            try
+            {
+                if(durum==true)
+                {
+                    AdminDatabase.StationAdd(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+                return View();
+            }
+            catch (Exception)
+            {
+                ViewBag.islem = -1;
+                return View();
+            }
         }
         
         public ActionResult StationCreate()
@@ -33,12 +52,19 @@ namespace QRTech.Controllers
         public ActionResult StationEdit(Station Entity)
         {
             int islem = 0;
+            bool durum = TFuncAdmin.DurakGuncelleKontrol(Entity.durakID,Entity.durakAD, Entity.ilceAdi, Entity.enlem, Entity.boylam);
             try
             {
-                AdminDatabase.StationUpdate(Entity);
-                ViewBag.islem = 1;
-                Station station = new Station();
-                return View(station);
+                if (durum == true)
+                {
+                    AdminDatabase.StationUpdate(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+                return View(Entity);
             }
             catch (Exception)
             {

@@ -225,26 +225,27 @@ namespace QRTech.Controllers
         {
 
             int islem = 0;
-            try
+
+            bool durum = TFunc.formBosKontrol(entity.AD, entity.Soyad, entity.TC, entity.Mail, entity.Adres, entity.Telefon, entity.Sifre, entity.yolcuTip);
+            if (durum == true && sayiMi(entity.TC) == true && entity.Sifre == entity.SifreTekrar)
             {
-                bool durum = TFunc.formBosKontrol(entity.AD, entity.Soyad, entity.TC, entity.Mail, entity.Adres, entity.Telefon, entity.Sifre, entity.yolcuTip);
-                if (durum == true && sayiMi(entity.TC)==true && entity.Sifre == entity.SifreTekrar)
+                try
                 {
                     UserDataBase.UserCreate(entity);
-                    ViewBag.islem = 1; 
                     return View("Login", user);
                 }
-                else
+                catch (Exception)
                 {
                     ViewBag.islem = -1;
                     return View("Create", entity);
                 }
             }
-            catch (Exception)
+            else
             {
                 ViewBag.islem = -1;
                 return View("Create", entity);
-            }           
+            }
+
         }
     }
 }

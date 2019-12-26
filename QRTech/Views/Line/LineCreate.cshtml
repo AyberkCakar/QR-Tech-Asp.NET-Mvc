@@ -1,5 +1,5 @@
 ﻿@using QRTech.Models
-@model Tuple<Line, Price>
+@model Line
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -33,25 +33,25 @@ else
 
                     <div class="form-group">
                         <label for="uname">Hat Adı:</label>
-                        @Html.TextBoxFor(m => m.Item1.HatNo, null, new { @class = "form-control" })
+                        @Html.TextBox("HatID", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="uname">Başlangıç Durağı:</label>
-                        @Html.TextBoxFor(m => m.Item1.BaslangicDurak, null, new { @class = "form-control" })
+                        @Html.TextBox("BaslangicDurak", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="e-posta">Bitiş Durağı:</label>
-                        @Html.TextBoxFor(m => m.Item1.BitisDurak, null, new { @class = "form-control" })
+                        @Html.TextBox("BitisDurak", null, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label for="e-posta">Normal Fiyat:</label>
-                        @Html.TextBoxFor(m => m.Item2.tamFiyat, null, new { @class = "form-control" })
+                        @Html.TextBox("tamFiyat", null, new { @class = "form-control" })
                     </div>
                     <div class="form-group">
                         <label for="e-posta">Öğrenci Fiyat:</label>
-                        @Html.TextBoxFor(m => m.Item2.ogrenciFiyat, null, new { @class = "form-control" })
+                        @Html.TextBox("ogrenciFiyat", null, new { @class = "form-control" })
                     </div>
                     <br />
                     <button type="submit" class="btn btn-success">Kaydet</button>

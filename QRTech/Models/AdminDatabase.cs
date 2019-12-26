@@ -267,12 +267,12 @@ namespace QRTech.Models
             else
                 return null;
         }
-        public static void LineAdd(Line Entity, Price Entity1)
+        public static void LineAdd(Line Entity)
         {
             SqlCommand lineAdd = new SqlCommand("insert into TBL_Fiyatlar (ogrenciFiyat,ogrenciOran,tamFiyat,tamOran,engelliFiyat,engelliOran,yasliFiyat,yasliOran,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)", sql.baglanti());
-            lineAdd.Parameters.AddWithValue("@p1", Entity1.ogrenciFiyat);
+            lineAdd.Parameters.AddWithValue("@p1", Entity.ogrenciFiyat);
             lineAdd.Parameters.AddWithValue("@p2", 1);
-            lineAdd.Parameters.AddWithValue("@p3", Entity1.tamFiyat);
+            lineAdd.Parameters.AddWithValue("@p3", Entity.tamFiyat);
             lineAdd.Parameters.AddWithValue("@p4", 1);
             lineAdd.Parameters.AddWithValue("@p5", 0);
             lineAdd.Parameters.AddWithValue("@p6", 1);
@@ -282,11 +282,12 @@ namespace QRTech.Models
             lineAdd.ExecuteNonQuery();
             sql.baglanti().Close();
 
+            int fiyatID =0;
             SqlCommand lineFiyat = new SqlCommand("select fiyatID from TBL_Fiyatlar order by fiyatID desc", sql.baglanti());
             SqlDataReader dtLineFiyat = lineFiyat.ExecuteReader();
             if (dtLineFiyat.Read())
             {
-                Entity1.fiyatID = Convert.ToInt32(dtLineFiyat[0]);
+                fiyatID = Convert.ToInt32(dtLineFiyat[0]);
             }
 
             SqlCommand lineDurak = new SqlCommand("(SELECT durakID from TBL_Durak where durakAdi =@p1)", sql.baglanti());
@@ -308,11 +309,10 @@ namespace QRTech.Models
             SqlCommand lineAdd1 = new SqlCommand("insert into TBL_Hat (hatAdi,kazanilanTutar,fiyatID,baslangicDurak,bitisDurak,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6)", sql.baglanti());
             lineAdd1.Parameters.AddWithValue("@p1", Entity.HatNo);
             lineAdd1.Parameters.AddWithValue("@p2", 0);
-            lineAdd1.Parameters.AddWithValue("@p3", Entity1.fiyatID);
+            lineAdd1.Parameters.AddWithValue("@p3", fiyatID);
             lineAdd1.Parameters.AddWithValue("@p4", Entity.BaslangicDurak);
             lineAdd1.Parameters.AddWithValue("@p5", Entity.BitisDurak);
             lineAdd1.Parameters.AddWithValue("@p6", 1);
-            lineAdd1.Parameters.AddWithValue("@p7", "1231251251");
             lineAdd1.ExecuteNonQuery();
             sql.baglanti().Close();
         }
@@ -394,7 +394,7 @@ namespace QRTech.Models
             sql.baglanti().Close();
         }
 
-        public static void VehicleAdd(Line Entity1, Vehicle Entity)
+        public static void VehicleAdd(Vehicle Entity)
         {
             SqlCommand Vehicle = new SqlCommand("select Mo.modelID from TBL_AracModel Mo inner join TBL_AracMarka Ma  ON Ma.markaID = Mo.markaID where  markaAdi =@p1 and modelAdi =@p2 ", sql.baglanti());
             Vehicle.Parameters.AddWithValue("@p1", Entity.AracMarka);
@@ -413,12 +413,13 @@ namespace QRTech.Models
                 Entity.Renk = dtVehicle1[0].ToString();
             }
 
+            int hatID = 0; 
             SqlCommand Vehicle2 = new SqlCommand("select hatID from TBL_Hat where hatAdi = @p1 ", sql.baglanti());
-            Vehicle2.Parameters.AddWithValue("@p1", Entity1.HatNo);
+            Vehicle2.Parameters.AddWithValue("@p1", Entity.HatNo);
             SqlDataReader dtVehicle2 = Vehicle2.ExecuteReader();
             while (dtVehicle2.Read())
             {
-                Entity1.HatID = Convert.ToInt32(dtVehicle2[0]);
+                hatID = Convert.ToInt32(dtVehicle2[0]);
             }
 
             SqlCommand VehicleAdd = new SqlCommand("insert into TBL_Arac (plaka,saseNumarasi,engelliDestegi,modelID,renkID,hatID) values (@p1,@p2,@p3,@p4,@p5,@p6) ", sql.baglanti());
@@ -427,7 +428,7 @@ namespace QRTech.Models
             VehicleAdd.Parameters.AddWithValue("@p3", Entity.engelliDestegi);
             VehicleAdd.Parameters.AddWithValue("@p4", Entity.Model);
             VehicleAdd.Parameters.AddWithValue("@p5", Entity.Renk);
-            VehicleAdd.Parameters.AddWithValue("@p6", Entity1.HatID);
+            VehicleAdd.Parameters.AddWithValue("@p6", hatID);
             VehicleAdd.ExecuteNonQuery();
             sql.baglanti().Close();
         }
@@ -454,7 +455,7 @@ namespace QRTech.Models
             sql.baglanti().Close();
         }
 
-        public static void DriverAdd(Driver Entity, Vehicle Entity1)
+        public static void DriverAdd(Driver Entity)
         {
             int iletisimID = 0;
             SqlCommand DriverAdd = new SqlCommand("insert into TBL_IletisimBilgi (telefonNo,mail,adres) values(@p1,@p2,@p3) ", sql.baglanti());
@@ -471,22 +472,24 @@ namespace QRTech.Models
                 iletisimID = Convert.ToInt32(dtDriver[0]);
             }
 
+            int aracID = 0;
             SqlCommand Driver2 = new SqlCommand("select aracID from TBL_Arac where plaka =@p1 ", sql.baglanti());
-            Driver2.Parameters.AddWithValue("@p1", Entity1.Plaka);
+            Driver2.Parameters.AddWithValue("@p1", Entity.AracPlaka);
             SqlDataReader dtDriver2 = Driver2.ExecuteReader();
             while (dtDriver2.Read())
             {
-                Entity1.aracID = Convert.ToInt32(dtDriver2[0]);
+                aracID = Convert.ToInt32(dtDriver2[0]);
             }
 
-            SqlCommand DriverAdd2 = new SqlCommand("insert into TBL_Sofor (isim,soyisim,tc,ehliyetSeriNo,Maas,iletisimID,aracID) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7)", sql.baglanti());
+            SqlCommand DriverAdd2 = new SqlCommand("insert into TBL_Sofor (isim,soyisim,tc,ehliyetSeriNo,Maas,iletisimID,aracID,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8)", sql.baglanti());
             DriverAdd2.Parameters.AddWithValue("@p1", Entity.AD);
             DriverAdd2.Parameters.AddWithValue("@p2", Entity.Soyad);
             DriverAdd2.Parameters.AddWithValue("@p3", Entity.TC);
             DriverAdd2.Parameters.AddWithValue("@p4", Entity.ehliyetSeriNo);
             DriverAdd2.Parameters.AddWithValue("@p5", Entity.Maas);
             DriverAdd2.Parameters.AddWithValue("@p6", iletisimID);
-            DriverAdd2.Parameters.AddWithValue("@p7", Entity1.aracID);
+            DriverAdd2.Parameters.AddWithValue("@p7", aracID);
+            DriverAdd2.Parameters.AddWithValue("@p7", _admin.ilID);
             DriverAdd2.ExecuteNonQuery();
             sql.baglanti().Close();
         }

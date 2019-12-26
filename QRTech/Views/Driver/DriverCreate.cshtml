@@ -1,5 +1,5 @@
 ﻿@using QRTech.Models
-@model Tuple<Driver, Vehicle>
+@model Driver
 @{
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
@@ -32,47 +32,47 @@ else
 
                     <div class="form-group">
                         <label for="uname">Söför Adı:</label>
-                        @Html.TextBoxFor(m => m.Item1.AD, null, new { @class = "form-control" })
+                        @Html.TextBox("AD", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="uname">Soyadı:</label>
-                        @Html.TextBoxFor(m => m.Item1.Soyad, null, new { @class = "form-control" })
+                        @Html.TextBox("Soyad", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="e-posta">TC:</label>
-                        @Html.TextBoxFor(m => m.Item1.TC, null, new { @class = "form-control" })
+                        @Html.TextBox("TC", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="e-posta">Ehliyet Seri No:</label>
-                        @Html.TextBoxFor(m => m.Item1.ehliyetSeriNo, null, new { @class = "form-control" })
+                        @Html.TextBox("ehliyetSeriNo", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="drop_list">Maaş:</label>
-                        @Html.TextBoxFor(m => m.Item1.Maas, null, new { @class = "form-control" })
+                        @Html.TextBox("Maas", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="drop_list">Kullandığı Araç Plaka:</label>
-                        @Html.TextBoxFor(m => m.Item2.Plaka, null, new { @class = "form-control" })
+                        @Html.TextBox("AracPlaka", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="drop_list">Telefon:</label>
-                        @Html.TextBoxFor(m => m.Item1.Telefon, null, new { @class = "form-control" })
+                        @Html.TextBox("Telefon", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="drop_list">Mail:</label>
-                        @Html.TextBoxFor(m => m.Item1.Mail, null, new { @class = "form-control" })
+                        @Html.TextBox("Mail", null, new { @class = "form-control" })
                     </div>
 
                     <div class="form-group">
                         <label for="drop_list">Adres:</label>
-                        @Html.TextBoxFor(m => m.Item1.Adres, null, new { @class = "form-control" })
+                        @Html.TextBox("Adres", null, new { @class = "form-control" })
                     </div>
                     <br />
                     <button type="submit" class="btn btn-success">Ekle</button>

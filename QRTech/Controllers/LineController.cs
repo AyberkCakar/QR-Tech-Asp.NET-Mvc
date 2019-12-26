@@ -19,10 +19,29 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult LineCreate([Bind(Prefix = "Item1")] Line Model1, [Bind(Prefix = "Item2")]Price Model2)
+        public ActionResult LineCreate(Line Entity)
         {
-            AdminDatabase.LineAdd(Model1,Model2);
-            return View();
+            int islem = 0;
+            bool durum = TFuncAdmin.HatEkleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat);
+            try
+            {
+                if (durum == true)
+                {
+                    AdminDatabase.LineAdd(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+
+                return View(Entity);
+            }
+            catch (Exception)
+            {
+                ViewBag.islem = -1;
+                return View(Entity);
+            }
         }
 
         public ActionResult LineCreate()
@@ -34,12 +53,20 @@ namespace QRTech.Controllers
         public ActionResult LineEdit(Line Entity)
         {
             int islem = 0;
+            bool durum = TFuncAdmin.HatGuncelleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat, Entity.HatID);
             try
             {
-                AdminDatabase.LineUpdate(Entity);
-                ViewBag.islem = 1;
-                Line line = new Line();
-                return View(line);
+                if (durum == true)
+                {
+                    AdminDatabase.LineUpdate(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+
+                return View(Entity);
             }
             catch (Exception)
             {
@@ -47,6 +74,8 @@ namespace QRTech.Controllers
                 return View(Entity);
             }
         }
+           
+     
 
         public ActionResult LineEdit(int id)
         {
@@ -59,12 +88,20 @@ namespace QRTech.Controllers
         public ActionResult LineDelete(Line Entity)
         {
             int islem = 0;
+            bool durum = TFuncAdmin.HatGuncelleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat,Entity.HatID);
             try
             {
-                AdminDatabase.LineDelete(Entity);
-                ViewBag.islem = 1;
-                Line line = new Line();
-                return View(line);
+                if (durum == true)
+                {
+                    AdminDatabase.LineDelete(Entity);
+                    ViewBag.islem = 1;
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                }
+
+                return View(Entity);
             }
             catch (Exception)
             {
