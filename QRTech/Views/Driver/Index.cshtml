@@ -26,7 +26,6 @@
                         <th>TC</th>
                         <th>Ehliyet Seri No</th>
                         <th>Kullandığı Araç</th>
-                        <th>Sürdüğü Hat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,7 +39,6 @@
                                 <td>@item.TC</td>
                                 <td>@item.ehliyetSeriNo</td>
                                 <td>@item.AracPlaka</td>
-                                <td>@item.HatNo</td>
                                 <td>
                                     @Html.ActionLink("Güncelle", "DriverEdit", new { id = item.soforID }, new { @class = "btn btn-primary btn-sm" })
                                     @Html.ActionLink("Sil", "DriverDelete", new { id = item.soforID }, new { @class = "btn btn-danger btn-sm" })

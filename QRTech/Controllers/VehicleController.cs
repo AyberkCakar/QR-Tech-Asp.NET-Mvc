@@ -48,8 +48,9 @@ namespace QRTech.Controllers
 
         public ActionResult VehicleEdit(int id)
         {
+            
             Vehicle vehicle = new Vehicle();
-            vehicle = AdminDatabase.VehicleFind(id);
+            vehicle = AdminDatabase.VehicleFind(id, AdminDatabase.VehicleLineID(id));
             return View(vehicle);
         }
 
@@ -73,7 +74,7 @@ namespace QRTech.Controllers
         public ActionResult VehicleDelete(int id)
         {
             Vehicle vehicle = new Vehicle();
-            vehicle = AdminDatabase.VehicleFind(id);
+            vehicle = AdminDatabase.VehicleFind(id, AdminDatabase.VehicleLineID(id));
             return View(vehicle);
         }
     }

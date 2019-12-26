@@ -37,8 +37,7 @@ namespace QRTech.Controllers
             {
                 AdminDatabase.DriverUpdate(Entity);
                 ViewBag.islem = 1;
-                Driver driver = new Driver();
-                return View(driver);
+                return View(Entity);
             }
             catch (Exception)
             {
@@ -63,8 +62,7 @@ namespace QRTech.Controllers
             {
                 AdminDatabase.DriverDelete(Entity);
                 ViewBag.islem = 1;
-                Driver driver = new Driver();
-                return View(driver);
+                return View(Entity);
             }
             catch (Exception)
             {

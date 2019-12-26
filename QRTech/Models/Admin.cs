@@ -8,7 +8,7 @@ namespace QRTech.Models
     public class Admin:Person
     {
         public int yoneticiID { get; set; }
-        public string kullanıcıAdi { get; set; }
+        public string kullaniciAdi { get; set; }
         public int ilID { get; set; }
     }
 }

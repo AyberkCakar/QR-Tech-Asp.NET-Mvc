@@ -10,8 +10,8 @@ namespace QRTech.Models
         public int HatID { get; set; }
         public int HatNo { get; set; }
         public double KazanılanTutar { get; set; }
-        public string BaslangıçDurak { get; set; }
-        public string BitişDurak { get; set; }
+        public string BaslangicDurak { get; set; }
+        public string BitisDurak { get; set; }
         public string ilAD { get; set; }
         public int ogrenciFiyat { get; set; }
         public int tamFiyat { get; set; }

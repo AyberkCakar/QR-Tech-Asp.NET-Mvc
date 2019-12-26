@@ -38,7 +38,6 @@ namespace QRTech.Models
                 driver.Mail = dtDriver[7].ToString();
                 driver.Adres = dtDriver[8].ToString();
                 driver.AracPlaka = dtDriver[9].ToString();
-                driver.HatNo = Convert.ToInt32(dtDriver[10]);
                 _drivers.Add(driver);
             }           
         }
@@ -50,6 +49,7 @@ namespace QRTech.Models
 
         public static Driver DriverFind(int DriverID)
         {
+            _drivers.Clear();
             SqlCommand driverGet = new SqlCommand("exec soforBul @p1", sql.baglanti());
             driverGet.Parameters.AddWithValue("@p1", DriverID);
             SqlDataReader dtDriver = driverGet.ExecuteReader();
@@ -66,8 +66,6 @@ namespace QRTech.Models
                 driver.Mail = dtDriver[7].ToString();
                 driver.Adres = dtDriver[8].ToString();
                 driver.AracPlaka = dtDriver[9].ToString();
-                driver.HatNo = Convert.ToInt32(dtDriver[10]);
-
                 return driver;
             }
             else
@@ -92,16 +90,56 @@ namespace QRTech.Models
                 vehicle.HatNo = Convert.ToInt32(dtVehicle[7]);
                 _vehicles.Add(vehicle);
             }
+
+            SqlCommand vehicleGet2 = new SqlCommand("exec aracBosList @p1", sql.baglanti());
+            vehicleGet2.Parameters.AddWithValue("@p1", _admin.ilID);
+            SqlDataReader dtVehicle2 = vehicleGet2.ExecuteReader();
+            while (dtVehicle2.Read())
+            {
+                Vehicle vehicle = new Vehicle();
+                vehicle.aracID = Convert.ToInt32(dtVehicle2[0]);
+                vehicle.Plaka = dtVehicle2[1].ToString();
+                vehicle.engelliDestegi = Convert.ToBoolean(dtVehicle2[2]);
+                vehicle.saseNumarasi = dtVehicle2[3].ToString();
+                vehicle.AracMarka = dtVehicle2[4].ToString();
+                vehicle.Model = dtVehicle2[5].ToString();
+                vehicle.Renk = dtVehicle2[6].ToString();
+                vehicle.HatNo = 0;
+                _vehicles.Add(vehicle);
+            }
+
         }
         public static List<Vehicle> VehicleListe
         {
             get { VehicleList(); return _vehicles; }
         }
-
-        public static Vehicle VehicleFind(int aracID)
+        public static int VehicleLineID(int aracID)
         {
-            SqlCommand vehicleFind = new SqlCommand("exec aracBul @p1", sql.baglanti());
+            int hatID = 0;
+            SqlCommand lineIDGet = new SqlCommand("Select hatID from TBL_Arac where aracID= @p1", sql.baglanti());
+            lineIDGet.Parameters.AddWithValue("@p1", aracID);
+            SqlDataReader dtLineID = lineIDGet.ExecuteReader();
+            if (dtLineID.Read())
+            {
+                if(DBNull.Value.Equals(dtLineID[0]))
+                {
+                    hatID = 0;
+                }
+                else
+                {
+                    hatID = Convert.ToInt32(dtLineID[0]);
+                }
+                return hatID;
+            }
+            else
+                return hatID;
+        }
+
+        public static Vehicle VehicleFind(int aracID,int hatID)
+        {
+            SqlCommand vehicleFind = new SqlCommand("exec aracBul @p1,@p2", sql.baglanti());
             vehicleFind.Parameters.AddWithValue("@p1", aracID);
+            vehicleFind.Parameters.AddWithValue("@p2", hatID);
             SqlDataReader dtVehicle = vehicleFind.ExecuteReader();
             if (dtVehicle.Read())
             {
@@ -113,7 +151,15 @@ namespace QRTech.Models
                 vehicle.AracMarka = dtVehicle[4].ToString();
                 vehicle.Model = dtVehicle[5].ToString();
                 vehicle.Renk = dtVehicle[6].ToString();
-                vehicle.HatNo = Convert.ToInt32(dtVehicle[7]);
+                if(DBNull.Value.Equals(dtVehicle[7]))
+                {
+                    vehicle.HatNo = 0;
+                }
+                else
+                {
+                    vehicle.HatNo = Convert.ToInt32(dtVehicle[7]);
+                }
+
                 return vehicle;
             }
             else
