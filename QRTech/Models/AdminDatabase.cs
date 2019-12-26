@@ -176,8 +176,8 @@ namespace QRTech.Models
                 Line line = new Line();
                 line.HatID = Convert.ToInt32(dtLine[0]);
                 line.HatNo = Convert.ToInt32(dtLine[1]);
-                line.BaslangıçDurak = dtLine[2].ToString();
-                line.BitişDurak = dtLine[3].ToString();
+                line.BaslangicDurak = dtLine[2].ToString();
+                line.BitisDurak = dtLine[3].ToString();
                 line.ilAD = dtLine[4].ToString();
                 line.ogrenciFiyat = Convert.ToInt32(dtLine[5]);
                 line.tamFiyat= Convert.ToInt32(dtLine[6]);
@@ -199,8 +199,8 @@ namespace QRTech.Models
                 Line line = new Line();
                 line.HatID = Convert.ToInt32(dtLine[0]);
                 line.HatNo = Convert.ToInt32(dtLine[1]);
-                line.BaslangıçDurak = dtLine[2].ToString();
-                line.BitişDurak = dtLine[3].ToString();
+                line.BaslangicDurak = dtLine[2].ToString();
+                line.BitisDurak = dtLine[3].ToString();
                 line.ilAD = dtLine[4].ToString();
                 line.ogrenciFiyat = Convert.ToInt32(dtLine[5]);
                 line.tamFiyat = Convert.ToInt32(dtLine[6]);
@@ -290,27 +290,27 @@ namespace QRTech.Models
             }
 
             SqlCommand lineDurak = new SqlCommand("(SELECT durakID from TBL_Durak where durakAdi =@p1)", sql.baglanti());
-            lineDurak.Parameters.AddWithValue("@p1", Entity.BaslangıçDurak);
+            lineDurak.Parameters.AddWithValue("@p1", Entity.BaslangicDurak);
             SqlDataReader dtLineDurak = lineDurak.ExecuteReader();
             while (dtLineDurak.Read())
             {
-                Entity.BaslangıçDurak = dtLineDurak[0].ToString();
+                Entity.BaslangicDurak = dtLineDurak[0].ToString();
             }
 
             SqlCommand lineDurak1 = new SqlCommand("(SELECT durakID from TBL_Durak where durakAdi =@p1)", sql.baglanti());
-            lineDurak1.Parameters.AddWithValue("@p1", Entity.BitişDurak);
+            lineDurak1.Parameters.AddWithValue("@p1", Entity.BitisDurak);
             SqlDataReader dtLineDurak1 = lineDurak1.ExecuteReader();
             while (dtLineDurak1.Read())
             {
-                Entity.BitişDurak = dtLineDurak1[0].ToString();
+                Entity.BitisDurak = dtLineDurak1[0].ToString();
             }
 
             SqlCommand lineAdd1 = new SqlCommand("insert into TBL_Hat (hatAdi,kazanilanTutar,fiyatID,baslangicDurak,bitisDurak,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6)", sql.baglanti());
             lineAdd1.Parameters.AddWithValue("@p1", Entity.HatNo);
             lineAdd1.Parameters.AddWithValue("@p2", 0);
             lineAdd1.Parameters.AddWithValue("@p3", Entity1.fiyatID);
-            lineAdd1.Parameters.AddWithValue("@p4", Entity.BaslangıçDurak);
-            lineAdd1.Parameters.AddWithValue("@p5", Entity.BitişDurak);
+            lineAdd1.Parameters.AddWithValue("@p4", Entity.BaslangicDurak);
+            lineAdd1.Parameters.AddWithValue("@p5", Entity.BitisDurak);
             lineAdd1.Parameters.AddWithValue("@p6", 1);
             lineAdd1.Parameters.AddWithValue("@p7", "1231251251");
             lineAdd1.ExecuteNonQuery();
@@ -328,8 +328,8 @@ namespace QRTech.Models
             SqlCommand lineUpdate1 = new SqlCommand("update TBL_Hat set hatAdi = @p2 ,baslangicDurak =(SELECT durakID from TBL_Durak where durakAdi =@p3),bitisDurak =(SELECT durakID from TBL_Durak where durakAdi =@p4) where hatID = @p1", sql.baglanti());
             lineUpdate1.Parameters.AddWithValue("@p1", Entity.HatID);
             lineUpdate1.Parameters.AddWithValue("@p2", Entity.HatNo);
-            lineUpdate1.Parameters.AddWithValue("@p3", Entity.BaslangıçDurak);
-            lineUpdate1.Parameters.AddWithValue("@p4", Entity.BitişDurak);
+            lineUpdate1.Parameters.AddWithValue("@p3", Entity.BaslangicDurak);
+            lineUpdate1.Parameters.AddWithValue("@p4", Entity.BitisDurak);
             lineUpdate1.ExecuteNonQuery();
             sql.baglanti().Close();
         }
@@ -521,13 +521,13 @@ namespace QRTech.Models
         {
             bool varYok = false;
             SqlCommand AdminControl = new SqlCommand("select * from TBL_Yonetici where  kullaniciAdi = @p1 and sifre=@p2", sql.baglanti());
-            AdminControl.Parameters.AddWithValue("@p1", Entity.kullanıcıAdi);
+            AdminControl.Parameters.AddWithValue("@p1", Entity.kullaniciAdi);
             AdminControl.Parameters.AddWithValue("@p2", Entity.Sifre);
             SqlDataReader dtAdmin = AdminControl.ExecuteReader();
             if (dtAdmin.Read())
             {
                 Admin admin = new Admin();
-                admin.kullanıcıAdi = dtAdmin[1].ToString();
+                admin.kullaniciAdi = dtAdmin[1].ToString();
                 admin.Sifre = dtAdmin[2].ToString();
                 admin.ilID = Convert.ToInt32(dtAdmin[3].ToString());
                 _admin = admin;

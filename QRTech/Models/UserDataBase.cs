@@ -160,8 +160,8 @@ namespace QRTech.Models
                 {
                     _UserLog _UserLog = new _UserLog();
                     _UserLog.line.HatNo = Convert.ToInt32(dtLog[0]);
-                    _UserLog.line.BaslangıçDurak = dtLog[1].ToString();
-                    _UserLog.line.BitişDurak = dtLog[2].ToString();
+                    _UserLog.line.BaslangicDurak = dtLog[1].ToString();
+                    _UserLog.line.BitisDurak = dtLog[2].ToString();
                     _UserLog.line.ilAD = dtLog[3].ToString();
                     _UserLog.Tarih = Convert.ToDateTime(dtLog[4]);
                     user._UserLogs.Add(_UserLog);

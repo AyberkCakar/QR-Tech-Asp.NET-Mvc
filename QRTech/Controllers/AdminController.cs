@@ -46,7 +46,7 @@ namespace QRTech.Controllers
         public ActionResult Login(Admin Entity)
         {
             int islem = 0;
-            if (Entity.kullanıcıAdi == null || Entity.Sifre == null)
+            if (Entity.kullaniciAdi == null || Entity.Sifre == null)
             {
                 islem = -1;
                 ViewBag.islem = islem;
