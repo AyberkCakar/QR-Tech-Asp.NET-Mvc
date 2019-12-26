@@ -47,7 +47,23 @@
                     <span class="login100-form-title p-b-59">
                         Kayıt Oluştur
                     </span>
+                    @if (ViewBag.islem == 1)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            Kayıt İşlemi Başarılı!
+                        </div>
+                    }
+                    else if (ViewBag.islem == -1)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            Kayıt İşlemi Başarısız!
+                        </div>
+                    }
+                    else
+                    {
 
+                    }
+                    
                     <div class="wrap-input100 validate-input" data-validate="Name is required">
                         <span class="label-input100">Ad</span>
                         @Html.TextBox("AD", null, new { @class = "form-control" })
@@ -81,6 +97,12 @@
 
                     </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <span class="label-input100">Adres</span>
+                        @Html.TextBox("Adres", null, new { @class = "form-control" })
+
+                    </div>
+
                     <div class="wrap-input100 validate-input" data-validate="Username is required">
                         <span class="label-input100">TC Kimlik Numarası</span>
                         @Html.TextBox("TC", null, new { @class = "form-control" })
@@ -89,13 +111,13 @@
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <span class="label-input100">Şifre</span>
-                        @Html.TextBox("Sifre", null, new { @class = "form-control" })
+                        @Html.Password("Sifre", null, new { @class = "form-control" })
 
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Repeat Password is required">
                         <span class="label-input100">Şifre Tekrarı</span>
-                        @Html.TextBox("SifreTekrar", null, new { @class = "form-control" })
+                        @Html.Password("SifreTekrar", null, new { @class = "form-control" })
 
                     </div>
 
@@ -113,6 +135,7 @@
                             <i class="fa fa-long-arrow-right m-l-5"></i>
                         </a>
                     </div>
+
                 </form>
                 }
 

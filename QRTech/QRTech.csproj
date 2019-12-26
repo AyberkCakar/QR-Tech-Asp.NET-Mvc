@@ -368,6 +368,7 @@
     <Compile Include="Models\IPayment.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\sql.cs" />
+    <Compile Include="Models\TFunc.cs" />
     <Compile Include="Models\Town.cs" />
     <Compile Include="Models\Line.cs" />
     <Compile Include="Models\Person.cs" />

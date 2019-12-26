@@ -43,7 +43,7 @@
                             @Html.ActionLink("Güncelle", "LineEdit", new { id = item.HatID }, new { @class = "btn btn-primary btn-sm" })
                             @Html.ActionLink("Sil", "LineDelete", new { id = item.HatID }, new { @class = "btn btn-danger btn-sm" })
 
-                            <button class="btn btn-success" onclick=" window.open('localhost:8081/' + @item.HatID,'_blank')"> QR Kodu Göster</button>
+                            <button class="btn btn-success" onclick=" window.open('http://40.121.4.171/' + @item.HatID,'_blank')"> QR Kodu Göster</button>
                         </td>
                     </tr>
                         }

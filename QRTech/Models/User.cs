@@ -15,8 +15,6 @@ namespace QRTech.Models
         [Required]
         public int yolcuTip { get; set; }
         [Required]
-        public string yolcuStatu { get; set; }
-        [Required]
         public string Telefon { get ; set; }
         [Required]
         public string Mail { get; set; }

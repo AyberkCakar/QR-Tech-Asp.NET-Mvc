@@ -35,8 +35,9 @@
     <link rel="stylesheet" type="text/css" href="~/css/main.css">
     <!--===============================================================================================-->
 </head>
-<body style="background-color: #999999;">
 
+<body style="background-color: #999999;">
+    </script>
     <div class="limiter">
         <div class="container-login100">
             <div class="login100-more" style="background-image: url('https://www.strate.co.za/blog/wp-content/uploads/2014/07/shutterstock_79305127-bw.jpg');"></div>
@@ -44,56 +45,56 @@
             <div class="wrap-login100 p-l-50 p-r-50 p-t-72 p-b-50">
                 @using (Html.BeginForm("Login", "Home", FormMethod.Post))
                 {
-                <form class="login100-form validate-form">
-                    <div>
-                        
-                        <span class="login100-form-title p-b-59">
-                            Giriş
-                        </span>
+                    <form class="login100-form validate-form">
+                        <div>
+
+                            <span class="login100-form-title p-b-59">
+                                Giriş
+                            </span>
 
 
-                        <div class="wrap-input100 validate-input" data-validate="Username is required">
-                            <span class="label-input100">TC Kimlik Numarası</span>
-                            @Html.TextBox("TC", null, new { @class = "form-control" })
+                            <div class="wrap-input100 validate-input" data-validate="Username is required">
+                                <span class="label-input100">TC Kimlik Numarası</span>
+                                @Html.TextBox("TC", null, new { @class = "form-control" })
+                            </div>
+
+                            <div class="wrap-input100 validate-input" data-validate="Password is required">
+                                <span class="label-input100">Şifre</span>
+                                @Html.Password("Sifre", null, new { @class = "form-control" })
+                            </div>
+                            <div class="container-login100-form-btn">
+                                <div class="wrap-login100-form-btn">
+                                    <div class="login100-form-bgbtn"></div>
+                                    <button class="login100-form-btn">
+                                        Giriş Yap
+                                    </button>
+                                </div>
+                                <a href="/Home/Create/" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
+                                    Kayıt Ol
+                                    <i class="fa fa-long-arrow-right m-l-5"></i>
+                                </a>
+                            </div>
+                            <br /><br />
+                            @if (ViewBag.islem == 1)
+                            {
+                                <div class="alert alert-success" role="alert">
+                                    Giriş İşlemi Başarılı!
+                                </div>
+                            }
+                            else if (ViewBag.islem == -1)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    Giriş İşlemi Başarısız!
+                                </div>
+                            }
+                            else
+                            {
+
+                            }
                         </div>
 
-                        <div class="wrap-input100 validate-input" data-validate="Password is required">
-                            <span class="label-input100">Şifre</span>
-                            @Html.Password("Sifre", null, new { @class = "form-control" })
-                        </div>
-                        <div class="container-login100-form-btn">
-                            <div class="wrap-login100-form-btn">
-                                <div class="login100-form-bgbtn"></div>
-                                <button class="login100-form-btn">
-                                    Giriş Yap
-                                </button>
-                            </div>
-                            <a href="/Home/Create/" class="dis-block txt3 hov1 p-r-30 p-t-10 p-b-10 p-l-30">
-                                Kayıt Ol
-                                <i class="fa fa-long-arrow-right m-l-5"></i>
-                            </a>
-                        </div>
-                        <br /><br />
-                        @if (ViewBag.islem == 1)
-                        {
-                            <div class="alert alert-success" role="alert">
-                                Giriş İşlemi Başarılı!
-                            </div>
-                        }
-                        else if (ViewBag.islem == -1)
-                        {
-                            <div class="alert alert-danger" role="alert">
-                                Giriş İşlemi Başarısız!
-                            </div>
-                        }
-                        else
-                        {
 
-                        }
-                    </div>
-
-
-                </form>
+                    </form>
                 }
 
             </div>

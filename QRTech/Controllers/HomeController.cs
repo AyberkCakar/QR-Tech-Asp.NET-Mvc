@@ -25,11 +25,16 @@ namespace QRTech.Controllers
             int islem = 0;
             entity.TC = user.TC;
             entity.kullanıcıID = user.kullanıcıID;
+            bool durum = TFunc.formOdemeBosKontrol(entity.TC, entity.Bakiye, entity.KKNo1, entity.KKNo2, entity.KKNo3, entity.KKNo4, entity.KKSahip, entity.KKSonTarihAy, entity.KKSonTarihYıl, entity.KKCVV);
             try
             {
-
-                UserDataBase.BalanceUpdate(entity);
-                islem = 1;
+                if (durum == true)
+                {
+                    UserDataBase.BalanceUpdate(entity);
+                    islem = 1;
+                }
+                else
+                    islem = -1;
 
             }
             catch (Exception)
@@ -168,6 +173,19 @@ namespace QRTech.Controllers
             User user = new User();
             return View();
         }
+        private bool sayiMi(string tc)
+        {
+            bool kontrol=false;
+            try
+            {
+                kontrol = Convert.ToInt64(tc) / 1 == Convert.ToInt64(tc) || Convert.ToInt64(tc) / 2 == Convert.ToInt64(tc) / 2 ? true : false;
+            }
+            catch (Exception)
+            {
+                kontrol = false;
+            }
+            return kontrol;
+        }
 
         [HttpPost]
         public ActionResult Login(User entity)
@@ -179,7 +197,7 @@ namespace QRTech.Controllers
                 ViewBag.islem = islem;
                 return View("Login", user);
             }
-            else if (UserDataBase.UserControl(entity) == true)
+            else if (sayiMi(entity.TC)==true && UserDataBase.UserControl(entity) == true)
             {
                 user=UserDataBase.GetUser;
                 islem = 1;
@@ -206,16 +224,26 @@ namespace QRTech.Controllers
         public ActionResult Create(User entity)
         {
 
-            user.islem = 0;
+            int islem = 0;
             try
             {
-                UserDataBase.UserCreate(entity);
-                return View("Login", user);
+                bool durum = TFunc.formBosKontrol(entity.AD, entity.Soyad, entity.TC, entity.Mail, entity.Adres, entity.Telefon, entity.Sifre, entity.yolcuTip);
+                if (durum == true && sayiMi(entity.TC)==true && entity.Sifre == entity.SifreTekrar)
+                {
+                    UserDataBase.UserCreate(entity);
+                    ViewBag.islem = 1; 
+                    return View("Login", user);
+                }
+                else
+                {
+                    ViewBag.islem = -1;
+                    return View("Create", entity);
+                }
             }
             catch (Exception)
             {
+                ViewBag.islem = -1;
                 return View("Create", entity);
-
             }           
         }
     }
