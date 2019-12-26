@@ -142,7 +142,7 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult Ticket(string qrCode )
+        public ActionResult Ticket(string qrCode , string scanner)
         {
             int islem = 0;
             try
@@ -207,17 +207,16 @@ namespace QRTech.Controllers
         {
 
             user.islem = 0;
-            if (UserDataBase.UserControl(entity) == true)
+            try
             {
-                User user = new User();
+                UserDataBase.UserCreate(entity);
                 return View("Login", user);
             }
-            else
+            catch (Exception)
             {
                 return View("Create", entity);
-            }
 
-
+            }           
         }
     }
 }

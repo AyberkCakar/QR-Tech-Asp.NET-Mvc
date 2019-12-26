@@ -64,6 +64,17 @@
 
                     </div>
 
+                    <div class="wrap-input100 validate-input" data-validate="Name is required">
+                        <span class="label-input100">Yolcu Tipi</span>
+                        <div class="form-control">
+                            <label>@Html.RadioButton("yolcuTip", 1)Öğrenci</label><br>
+                            <label>@Html.RadioButton("yolcuTip", 2)Tam</label><br>
+                            <label>@Html.RadioButton("yolcuTip", 3)Yaşli</label><br>
+                            <label>@Html.RadioButton("yolcuTip", 4)Engelli</label><br>
+                        </div>
+
+                    </div>
+
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
                         <span class="label-input100">E-Posta</span>
                         @Html.TextBox("Mail", null, new { @class = "form-control" })

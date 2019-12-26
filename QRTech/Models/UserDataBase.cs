@@ -84,7 +84,6 @@ namespace QRTech.Models
                     if (Convert.ToInt32(dtUser[0]) == 1)
                     {
                         Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[0]) * Convert.ToDouble(dtUserPayment[1]));
-                        double i =(Convert.ToDouble(dtUserPayment[0]) * Convert.ToDouble(dtUserPayment[1]));
                     }
                     else if (Convert.ToInt32(dtUser[0]) == 2)
                     {
@@ -94,26 +93,42 @@ namespace QRTech.Models
                     {
                         Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[4]) * Convert.ToDouble(dtUserPayment[5]));
                     }
-                    else
+                    else if (Convert.ToInt32(dtUser[0]) == 4)
                     {
                         Entity.Bakiye = Entity.Bakiye - (Convert.ToDouble(dtUserPayment[6]) * Convert.ToDouble(dtUserPayment[7]));
                     }
+                    else
+                    {
+                        throw new Exception();
 
-                    SqlCommand payUp = new SqlCommand("update TBL_Kullanici set bakiye=@p2 where tc=@p1", sql.baglanti());
-                    payUp.Parameters.AddWithValue("@p1", Entity.TC);
-                    payUp.Parameters.AddWithValue("@p2", Entity.Bakiye);
-                    payUp.ExecuteNonQuery();
-                    sql.baglanti().Close();
+                    }
+                        if (Entity.Bakiye >=0)
+                        {
+                            SqlCommand payUp = new SqlCommand("update TBL_Kullanici set bakiye=@p2 where tc=@p1", sql.baglanti());
+                            payUp.Parameters.AddWithValue("@p1", Entity.TC);
+                            payUp.Parameters.AddWithValue("@p2", Entity.Bakiye);
+                            payUp.ExecuteNonQuery();
+                            sql.baglanti().Close();
 
-                    SqlCommand userLog = new SqlCommand("insert into TBL_KullaniciLog (tarih,hatID,kullaniciID) values (@p3,@p4,@p5)", sql.baglanti());
-                    userLog.Parameters.AddWithValue("@p3", DateTime.Now);
-                    userLog.Parameters.AddWithValue("@p4", Convert.ToInt32(dtUserPayment[8]));
-                    userLog.Parameters.AddWithValue("@p5", Entity.kullanıcıID);
-                    userLog.ExecuteNonQuery();
-                    sql.baglanti().Close();
-                   
+                            SqlCommand userLog = new SqlCommand("insert into TBL_KullaniciLog (tarih,hatID,kullaniciID) values (@p3,@p4,@p5)", sql.baglanti());
+                            userLog.Parameters.AddWithValue("@p3", DateTime.Now);
+                            userLog.Parameters.AddWithValue("@p4", Convert.ToInt32(dtUserPayment[8]));
+                            userLog.Parameters.AddWithValue("@p5", Entity.kullanıcıID);
+                            userLog.ExecuteNonQuery();
+                            sql.baglanti().Close();
+                        }
+                        else
+                        {
+                            throw new Exception();
+
+                        }
+                }
+                else
+                {
+                    throw new Exception();
                 }
             }
+
             UserControl(Entity);
         }
 
@@ -158,6 +173,34 @@ namespace QRTech.Models
             {
                 return varYok = false;
             }
+        }
+
+        public static void UserCreate(User Entity)
+        {
+            int iletisimID = 0;
+            SqlCommand UserAdd = new SqlCommand("insert into TBL_IletisimBilgi (telefonNo,mail) values(@p1,@p2) ", sql.baglanti());
+            UserAdd.Parameters.AddWithValue("@p1", Entity.Telefon);
+            UserAdd.Parameters.AddWithValue("@p2", Entity.Mail);
+            UserAdd.ExecuteNonQuery();
+            sql.baglanti().Close();
+
+            SqlCommand User = new SqlCommand("select iletisimID from TBL_IletisimBilgi order by iletisimID desc ", sql.baglanti());
+            SqlDataReader dtUser = User.ExecuteReader();
+            if (dtUser.Read())
+            {
+                iletisimID = Convert.ToInt32(dtUser[0]);
+            }
+
+            SqlCommand userCreate = new SqlCommand("insert into TBL_Kullanici (bakiye,tc,sifre,yolcuStatusu,isim,soyisim,iletisimID) values (@p3,@p4,@p5,@p6,@p7,@p8,@p9)", sql.baglanti());
+            userCreate.Parameters.AddWithValue("@p4", 0);
+            userCreate.Parameters.AddWithValue("@p5", Entity.TC);
+            userCreate.Parameters.AddWithValue("@p6", Entity.Sifre);
+            userCreate.Parameters.AddWithValue("@p7", Entity.yolcuTip);
+            userCreate.Parameters.AddWithValue("@p8", Entity.AD);
+            userCreate.Parameters.AddWithValue("@p9", Entity.Soyad);
+            userCreate.Parameters.AddWithValue("@p6", iletisimID);
+            userCreate.ExecuteNonQuery();
+            sql.baglanti().Close();
         }
     }
 }
