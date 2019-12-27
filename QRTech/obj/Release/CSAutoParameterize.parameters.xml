@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="Veritabani-Web.config Connection String" description="Veritabani Veritabanına erişmek için uygulama tarafından web.config'de kullanılan Bağlantı Dizesi." defaultValue=" Data Source=DESKTOP-CCP65NT\SQLEXPRESS; Initial Catalog=QRTech; Integrated Security=True;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\ASUS\\Source\\Repos\\QR-Tech-Mvc\\QRTech\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='Veritabani']/@connectionString" />
+  </parameter>
+</parameters>

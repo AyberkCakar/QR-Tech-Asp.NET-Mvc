@@ -1,0 +1,66 @@
+﻿@model QRTech.Models.Line
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Hat Güncelleme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Hat Güncelleme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Hat Düzenle</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("LineEdit", "Line", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="uname">Hat ID:</label>
+                        @Html.TextBox("HatID", @Model.HatID, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Hat Adı:</label>
+                        @Html.TextBox("HatNo", @Model.HatNo, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Başlangıç Durağı:</label>
+                        @Html.TextBox("BaslangicDurak", @Model.BaslangicDurak, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Bitiş Durağı:</label>
+                        @Html.TextBox("BitisDurak", @Model.BitisDurak, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="e-posta">Normal Fiyat:</label>
+                        @Html.TextBox("tamFiyat", @Model.tamFiyat, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="e-posta">Öğrenci Fiyat:</label>
+                        @Html.TextBox("ogrenciFiyat", @Model.ogrenciFiyat, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Güncelle</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

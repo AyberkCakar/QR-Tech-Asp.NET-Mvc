@@ -111,7 +111,7 @@ namespace QRTech.Models
                             sql.baglanti().Close();
 
                             SqlCommand userLog = new SqlCommand("insert into TBL_KullaniciLog (tarih,hatID,kullaniciID) values (@p3,@p4,@p5)", sql.baglanti());
-                            userLog.Parameters.AddWithValue("@p3", DateTime.Now);
+                            userLog.Parameters.AddWithValue("@p3", DateTime.Now.AddHours(3));
                             userLog.Parameters.AddWithValue("@p4", Convert.ToInt32(dtUserPayment[8]));
                             userLog.Parameters.AddWithValue("@p5", Entity.kullanıcıID);
                             userLog.ExecuteNonQuery();

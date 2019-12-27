@@ -1,0 +1,59 @@
+﻿@model List<QRTech.Models.Line>
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="wrapper">
+    <!-- Page Content  -->
+    <div id="content">
+
+        <h2>  Hat Listesi</h2>
+        <br />
+        <div class="row">
+            <div class="col-md-6">
+                <label>Search:<input id="searchInput" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example"></label>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table id="listTable" style="width:100%" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Hat ID</th>
+                        <th>Hat Adı</th>
+                        <th>Başlangıç Durağı</th>
+                        <th>Bitiş Durağı</th>
+                        <th>Hat İl</th>
+                        <th>Öğrenci Fiyat</th>
+                        <th>Tam Fiyat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>@item.HatID</td>
+                        <td>@item.HatNo</td>
+                        <td>@item.BaslangicDurak</td>
+                        <td>@item.BitisDurak</td>
+                        <td>@item.ilAD</td>
+                        <td>@item.ogrenciFiyat</td>
+                        <td>@item.tamFiyat</td>
+                        <td>
+                            @Html.ActionLink("Güncelle", "LineEdit", new { id = item.HatID }, new { @class = "btn btn-primary btn-sm" })
+                            @Html.ActionLink("Sil", "LineDelete", new { id = item.HatID }, new { @class = "btn btn-danger btn-sm" })
+
+                            <button class="btn btn-success" onclick=" window.open('http://40.121.4.171/' + @item.HatID,'_blank')"> QR Kodu Göster</button>
+                        </td>
+                    </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

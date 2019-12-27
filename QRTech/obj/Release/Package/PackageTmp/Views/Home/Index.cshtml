@@ -1,0 +1,30 @@
+﻿@model QRTech.Models.User
+<a href="/Home/Index"></a>
+<div class="container-fluid">
+    <h5 style="color:tomato" class="row">QR Tech ile alakalı tüm hesap işlemlerinizi buradan yapabilirsiniz.</h5>
+    <label class="row font-weight-bold">
+        İsim:
+        <span class="font-weight-normal">&nbsp @Model.AD</span>
+    </label>
+    <label class="row font-weight-bold">
+        Soyisim:
+        <span class="font-weight-normal">&nbsp @Model.Soyad</span>
+    </label>
+    <label class="row font-weight-bold">
+        E-posta:
+        <span class="font-weight-normal">&nbsp @Model.Mail</span>
+    </label><label class="row font-weight-bold">
+        Mevcut QR Tech bakiyeniz:
+        <span class="font-weight-normal">&nbsp   @Model.Bakiye TL</span>
+    </label>
+    <br><br>
+
+
+    <iframe style="position: static; top: -9999em; visibility: visible;" allowtransparency="true" scrolling="no" onload="window.parent.scrollTo(0,0); this.style.position='static'; this.style.visibility='visible';" src="https://moovitapp.com/" width="100%" height="800" class="col-xs-12" frameborder="0"></iframe>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="~/bootstrap/dist/js/bootstrap.min.js"></script>

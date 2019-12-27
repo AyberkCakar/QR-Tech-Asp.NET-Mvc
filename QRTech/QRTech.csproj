@@ -305,6 +305,7 @@
     <Content Include="fonts\poppins\Poppins-SemiBoldItalic.ttf" />
     <Content Include="fonts\poppins\Poppins-Thin.ttf" />
     <Content Include="fonts\poppins\Poppins-ThinItalic.ttf" />
+    <None Include="Properties\PublishProfiles\QR-TECH - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

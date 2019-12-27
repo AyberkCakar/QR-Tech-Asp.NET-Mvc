@@ -13,8 +13,8 @@ namespace QRTech.Models
         public string BaslangicDurak { get; set; }
         public string BitisDurak { get; set; }
         public string ilAD { get; set; }
-        public int ogrenciFiyat { get; set; }
-        public int tamFiyat { get; set; }
+        public float ogrenciFiyat { get; set; }
+        public float tamFiyat { get; set; }
 
         public List<Line> Lines = new List<Line>();
     }

@@ -1,0 +1,80 @@
+﻿@model QRTech.Models.Vehicle
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Araç Güncelleme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Araç Güncelleme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Araç Güncelle</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("VehicleEdit", "Vehicle", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="e-posta">Araç ID:</label>
+                        @Html.TextBox("aracID", @Model.aracID, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Plaka:</label>
+                        @Html.TextBox("Plaka", @Model.Plaka, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Marka:</label>
+                        @Html.TextBox("AracMarka", @Model.AracMarka, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Model:</label>
+                        @Html.TextBox("Model", @Model.Model, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Renk:</label>
+                        @Html.TextBox("Renk", @Model.Renk, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Şase Numarası:</label>
+                        @Html.TextBox("saseNumarasi", @Model.saseNumarasi, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="drop_list">Engelli Desteği:</label>
+                        @Html.TextBox("engelliDestegi", @Model.engelliDestegi, new { @class = "form-control" })
+
+                    </div>
+                    <div class="form-group">
+                        <label for="drop_list">Kullanıldığı Hat:</label>
+                        @Html.TextBox("HatNo", @Model.HatNo, new { @class = "form-control" })
+
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Kaydet</button>
+                </form>
+            }
+
+
+        </div>
+    </div>
+</div>

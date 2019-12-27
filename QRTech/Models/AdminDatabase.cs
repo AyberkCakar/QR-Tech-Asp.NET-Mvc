@@ -267,12 +267,12 @@ namespace QRTech.Models
             else
                 return null;
         }
-        public static void LineAdd(Line Entity)
+        public static void LineAdd(int HatNo, string BaslangicDurak, string BitisDurak, float ogrenciFiyat, float tamFiyat)
         {
             SqlCommand lineAdd = new SqlCommand("insert into TBL_Fiyatlar (ogrenciFiyat,ogrenciOran,tamFiyat,tamOran,engelliFiyat,engelliOran,yasliFiyat,yasliOran,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6,@p7,@p8,@p9)", sql.baglanti());
-            lineAdd.Parameters.AddWithValue("@p1", Entity.ogrenciFiyat);
+            lineAdd.Parameters.AddWithValue("@p1", ogrenciFiyat);
             lineAdd.Parameters.AddWithValue("@p2", 1);
-            lineAdd.Parameters.AddWithValue("@p3", Entity.tamFiyat);
+            lineAdd.Parameters.AddWithValue("@p3", tamFiyat);
             lineAdd.Parameters.AddWithValue("@p4", 1);
             lineAdd.Parameters.AddWithValue("@p5", 0);
             lineAdd.Parameters.AddWithValue("@p6", 1);
@@ -291,45 +291,45 @@ namespace QRTech.Models
             }
 
             SqlCommand lineDurak = new SqlCommand("(SELECT durakID from TBL_Durak where durakAdi =@p1)", sql.baglanti());
-            lineDurak.Parameters.AddWithValue("@p1", Entity.BaslangicDurak);
+            lineDurak.Parameters.AddWithValue("@p1", BaslangicDurak);
             SqlDataReader dtLineDurak = lineDurak.ExecuteReader();
             while (dtLineDurak.Read())
             {
-                Entity.BaslangicDurak = dtLineDurak[0].ToString();
+               BaslangicDurak = dtLineDurak[0].ToString();
             }
 
             SqlCommand lineDurak1 = new SqlCommand("(SELECT durakID from TBL_Durak where durakAdi =@p1)", sql.baglanti());
-            lineDurak1.Parameters.AddWithValue("@p1", Entity.BitisDurak);
+            lineDurak1.Parameters.AddWithValue("@p1", BitisDurak);
             SqlDataReader dtLineDurak1 = lineDurak1.ExecuteReader();
             while (dtLineDurak1.Read())
             {
-                Entity.BitisDurak = dtLineDurak1[0].ToString();
+                BitisDurak = dtLineDurak1[0].ToString();
             }
 
             SqlCommand lineAdd1 = new SqlCommand("insert into TBL_Hat (hatAdi,kazanilanTutar,fiyatID,baslangicDurak,bitisDurak,ilID) values (@p1,@p2,@p3,@p4,@p5,@p6)", sql.baglanti());
-            lineAdd1.Parameters.AddWithValue("@p1", Entity.HatNo);
+            lineAdd1.Parameters.AddWithValue("@p1", HatNo);
             lineAdd1.Parameters.AddWithValue("@p2", 0);
             lineAdd1.Parameters.AddWithValue("@p3", fiyatID);
-            lineAdd1.Parameters.AddWithValue("@p4", Entity.BaslangicDurak);
-            lineAdd1.Parameters.AddWithValue("@p5", Entity.BitisDurak);
+            lineAdd1.Parameters.AddWithValue("@p4", BaslangicDurak);
+            lineAdd1.Parameters.AddWithValue("@p5", BitisDurak);
             lineAdd1.Parameters.AddWithValue("@p6", 1);
             lineAdd1.ExecuteNonQuery();
             sql.baglanti().Close();
         }
-        public static void LineUpdate(Line Entity)
+        public static void LineUpdate(int HatID, int HatNo, string BaslangicDurak, string BitisDurak, float ogrenciFiyat, float tamFiyat)
         {
             SqlCommand lineUpdate = new SqlCommand("update TBL_Fiyatlar set ogrenciFiyat= @p2 , tamFiyat =@p3 where fiyatID=(select fiyatID from TBL_Hat where hatID=@p1)", sql.baglanti());
-            lineUpdate.Parameters.AddWithValue("@p1", Entity.HatID);
-            lineUpdate.Parameters.AddWithValue("@p2", Entity.ogrenciFiyat);
-            lineUpdate.Parameters.AddWithValue("@p3", Entity.tamFiyat);
+            lineUpdate.Parameters.AddWithValue("@p1", HatID);
+            lineUpdate.Parameters.AddWithValue("@p2", ogrenciFiyat);
+            lineUpdate.Parameters.AddWithValue("@p3", tamFiyat);
             lineUpdate.ExecuteNonQuery();
             sql.baglanti().Close();
 
             SqlCommand lineUpdate1 = new SqlCommand("update TBL_Hat set hatAdi = @p2 ,baslangicDurak =(SELECT durakID from TBL_Durak where durakAdi =@p3),bitisDurak =(SELECT durakID from TBL_Durak where durakAdi =@p4) where hatID = @p1", sql.baglanti());
-            lineUpdate1.Parameters.AddWithValue("@p1", Entity.HatID);
-            lineUpdate1.Parameters.AddWithValue("@p2", Entity.HatNo);
-            lineUpdate1.Parameters.AddWithValue("@p3", Entity.BaslangicDurak);
-            lineUpdate1.Parameters.AddWithValue("@p4", Entity.BitisDurak);
+            lineUpdate1.Parameters.AddWithValue("@p1", HatID);
+            lineUpdate1.Parameters.AddWithValue("@p2", HatNo);
+            lineUpdate1.Parameters.AddWithValue("@p3", BaslangicDurak);
+            lineUpdate1.Parameters.AddWithValue("@p4", BitisDurak);
             lineUpdate1.ExecuteNonQuery();
             sql.baglanti().Close();
         }
@@ -489,7 +489,7 @@ namespace QRTech.Models
             DriverAdd2.Parameters.AddWithValue("@p5", Entity.Maas);
             DriverAdd2.Parameters.AddWithValue("@p6", iletisimID);
             DriverAdd2.Parameters.AddWithValue("@p7", aracID);
-            DriverAdd2.Parameters.AddWithValue("@p7", _admin.ilID);
+            DriverAdd2.Parameters.AddWithValue("@p8", _admin.ilID);
             DriverAdd2.ExecuteNonQuery();
             sql.baglanti().Close();
         }

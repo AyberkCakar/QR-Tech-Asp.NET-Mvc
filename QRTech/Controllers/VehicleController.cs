@@ -33,12 +33,12 @@ namespace QRTech.Controllers
                 {
                     ViewBag.islem = -1;
                 }
-                return View();
+                return View(Entity);
             }
             catch (Exception)
             {
                 ViewBag.islem = -1;
-                return View();
+                return View(Entity);
             }
         }
         public ActionResult VehicleCreate()
@@ -63,7 +63,7 @@ namespace QRTech.Controllers
                 {
                     ViewBag.islem = -1;
                 }
-                return View();
+                return View(Entity);
             }
             catch (Exception)
             {

@@ -1,0 +1,61 @@
+﻿@model QRTech.Models.Station
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Durak Güncelleme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Durak Güncelleme Silme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Durak Güncelle</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("StationEdit", "Station", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="uname">Durak ID:</label>
+                        @Html.TextBox("DurakID", @Model.durakID, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Durak Adı:</label>
+                        @Html.TextBox("DurakAD", @Model.durakAD, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uname">Durak İlçesi:</label>
+                        @Html.TextBox("ilceAdi", @Model.ilceAdi, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Durak Enlem:</label>
+                        @Html.TextBox("enlem", @Model.enlem, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="e-posta">Durak Boylam:</label>
+                        @Html.TextBox("boylam", @Model.boylam, new { @class = "form-control" })
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-success">Güncelle</button>
+                </form>
+            }
+        </div>
+    </div>
+</div>

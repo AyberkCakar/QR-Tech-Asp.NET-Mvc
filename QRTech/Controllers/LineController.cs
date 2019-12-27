@@ -19,15 +19,16 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult LineCreate(Line Entity)
+        public ActionResult LineCreate(int HatNo, string BaslangicDurak, string BitisDurak, float ogrenciFiyat, float tamFiyat)
         {
             int islem = 0;
-            bool durum = TFuncAdmin.HatEkleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat);
+            Line Entity = new Line();
+            bool durum = TFuncAdmin.HatEkleKontrol(HatNo, BaslangicDurak, BitisDurak, tamFiyat, ogrenciFiyat);
             try
             {
                 if (durum == true)
                 {
-                    AdminDatabase.LineAdd(Entity);
+                    AdminDatabase.LineAdd(HatNo, BaslangicDurak, BitisDurak, ogrenciFiyat, tamFiyat);
                     ViewBag.islem = 1;
                 }
                 else
@@ -50,15 +51,16 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult LineEdit(Line Entity)
+        public ActionResult LineEdit(int HatID,int HatNo,string BaslangicDurak,string BitisDurak, int ogrenciFiyat,int tamFiyat)
         {
             int islem = 0;
-            bool durum = TFuncAdmin.HatGuncelleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat, Entity.HatID);
+            Line Entity = new Line();
+            bool durum = TFuncAdmin.HatGuncelleKontrol(HatNo, BaslangicDurak, BitisDurak, tamFiyat, ogrenciFiyat, HatID);
             try
             {
                 if (durum == true)
                 {
-                    AdminDatabase.LineUpdate(Entity);
+                    AdminDatabase.LineUpdate (HatID,HatNo, BaslangicDurak, BitisDurak, ogrenciFiyat, tamFiyat);
                     ViewBag.islem = 1;
                 }
                 else

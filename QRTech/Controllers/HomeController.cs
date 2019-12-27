@@ -147,7 +147,7 @@ namespace QRTech.Controllers
         }
 
         [HttpPost]
-        public ActionResult Ticket(string qrCode , string scanner)
+        public ActionResult Ticket(string qrCode)
         {
             int islem = 0;
             try

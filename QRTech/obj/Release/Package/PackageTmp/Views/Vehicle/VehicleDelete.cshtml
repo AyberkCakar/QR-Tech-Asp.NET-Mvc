@@ -1,0 +1,52 @@
+﻿@model QRTech.Models.Vehicle
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@if (ViewBag.islem == 1)
+{
+    <div class="alert alert-success" role="alert">
+        Araç Silme İşlemi Başarıyla Gerçekleşti!
+    </div>
+}
+else if (ViewBag.islem == -1)
+{
+    <div class="alert alert-danger" role="alert">
+        Araç Silme İşlemi Başarısız!
+    </div>
+}
+else
+{
+
+}
+
+<div class="wrapper">
+
+    <div id="content">
+        <h2>  Araç Güncelle</h2>
+        <br />
+        <div class="container-fluid">
+            @using (Html.BeginForm("VehicleDelete", "Vehicle", FormMethod.Post))
+            {
+                <form action="" class="was-validated">
+                    <div class="form-group">
+                        <label for="e-posta">Araç ID:</label>
+                        @Html.TextBox("aracID", @Model.aracID, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label for="e-posta">Araç Plaka:</label>
+                        @Html.TextBox("Plaka", @Model.Plaka, new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label for="e-posta">Araç Şase Numarası:</label>
+                        @Html.TextBox("saseNumarasi", @Model.saseNumarasi, new { @class = "form-control" })
+                    </div>
+                    <button type="submit" class="btn btn-success">Sil</button>
+                </form>
+            }
+
+        </div>
+    </div>
+</div>

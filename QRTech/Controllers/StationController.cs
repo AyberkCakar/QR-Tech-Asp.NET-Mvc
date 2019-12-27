@@ -52,6 +52,7 @@ namespace QRTech.Controllers
         public ActionResult StationEdit(Station Entity)
         {
             int islem = 0;
+            
             bool durum = TFuncAdmin.DurakGuncelleKontrol(Entity.durakID,Entity.durakAD, Entity.ilceAdi, Entity.enlem, Entity.boylam);
             try
             {
