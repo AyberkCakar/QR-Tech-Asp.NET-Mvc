@@ -404,7 +404,6 @@
     <Content Include="Views\Station\Index.cshtml" />
     <Content Include="Views\Station\StationCreate.cshtml" />
     <Content Include="Views\Station\StationEdit.cshtml" />
-    <Content Include="Views\Station\StationDelete.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
     <Content Include="Views\Driver\DriverCreate.cshtml" />
     <Content Include="Views\Driver\DriverEdit.cshtml" />

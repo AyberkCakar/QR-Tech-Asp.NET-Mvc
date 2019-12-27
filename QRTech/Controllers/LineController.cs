@@ -90,19 +90,10 @@ namespace QRTech.Controllers
         public ActionResult LineDelete(Line Entity)
         {
             int islem = 0;
-            bool durum = TFuncAdmin.HatGuncelleKontrol(Entity.HatNo, Entity.BaslangicDurak, Entity.BitisDurak, Entity.tamFiyat, Entity.ogrenciFiyat,Entity.HatID);
             try
             {
-                if (durum == true)
-                {
-                    AdminDatabase.LineDelete(Entity);
-                    ViewBag.islem = 1;
-                }
-                else
-                {
-                    ViewBag.islem = -1;
-                }
-
+                AdminDatabase.LineDelete(Entity);
+                ViewBag.islem = 1;
                 return View(Entity);
             }
             catch (Exception)

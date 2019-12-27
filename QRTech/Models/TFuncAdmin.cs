@@ -77,9 +77,9 @@ namespace QRTech.Models
                 return true;
         };
 
-        public static Func<string, string, string, string, string, int, int, bool> AracGuncelleKontrol = (p1, p2, p3, p4, p5, p6, p7) =>
+        public static Func<string, string, string, string, string, int, bool> AracGuncelleKontrol = (p1, p2, p3, p4, p5, p6) =>
         {
-            if (p1 == "" || p2 == "" || p3 == "" || p4 == "" || p5 == "" || p6 == 0 || p7 == 0)
+            if (p1 == "" || p2 == "" || p3 == "" || p4 == "" || p5 == "" || p6 == 0 )
             {
                 return false;
             }

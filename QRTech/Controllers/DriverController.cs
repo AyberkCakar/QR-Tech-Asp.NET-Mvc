@@ -74,7 +74,7 @@ namespace QRTech.Controllers
         {
 
             Driver driver = new Driver();
-            driver = AdminDatabase.DriverFind(id);
+            driver = AdminDatabase.DriverFind(id,AdminDatabase.DriverNullFind(id));
             return View(driver);
         }
 
@@ -98,7 +98,7 @@ namespace QRTech.Controllers
         public ActionResult DriverDelete(int id)
         {
             Driver driver = new Driver();
-            driver = AdminDatabase.DriverFind(id);
+            driver = AdminDatabase.DriverFind(id, AdminDatabase.DriverNullFind(id));
             return View(driver);
         }
     }

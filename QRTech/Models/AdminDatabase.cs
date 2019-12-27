@@ -39,7 +39,26 @@ namespace QRTech.Models
                 driver.Adres = dtDriver[8].ToString();
                 driver.AracPlaka = dtDriver[9].ToString();
                 _drivers.Add(driver);
-            }           
+            }
+
+            SqlCommand driverGet2 = new SqlCommand("exec soforBosList @p1", sql.baglanti());
+            driverGet2.Parameters.AddWithValue("@p1", _admin.ilID);
+            SqlDataReader dtDriver2 = driverGet2.ExecuteReader();
+            while (dtDriver2.Read())
+            {
+                Driver driver = new Driver();
+                driver.soforID = Convert.ToInt32(dtDriver2[0]);
+                driver.AD = dtDriver2[1].ToString();
+                driver.Soyad = dtDriver2[2].ToString();
+                driver.TC = dtDriver2[3].ToString();
+                driver.ehliyetSeriNo = Convert.ToInt32(dtDriver2[4]);
+                driver.Maas = Convert.ToInt32(dtDriver2[5]);
+                driver.Telefon = dtDriver2[6].ToString();
+                driver.Mail = dtDriver2[7].ToString();
+                driver.Adres = dtDriver2[8].ToString();
+                driver.AracPlaka = "0";
+                _drivers.Add(driver);
+            }
         }
 
         public static List<Driver>DriverListe
@@ -47,11 +66,12 @@ namespace QRTech.Models
             get { DriverList(); return _drivers; }
         }
 
-        public static Driver DriverFind(int DriverID)
+        public static Driver DriverFind(int DriverID,int aracID)
         {
             _drivers.Clear();
-            SqlCommand driverGet = new SqlCommand("exec soforBul @p1", sql.baglanti());
+            SqlCommand driverGet = new SqlCommand("exec soforBul @p1,@p2", sql.baglanti());
             driverGet.Parameters.AddWithValue("@p1", DriverID);
+            driverGet.Parameters.AddWithValue("@p2", aracID);
             SqlDataReader dtDriver = driverGet.ExecuteReader();
             if (dtDriver.Read())
             {
@@ -71,6 +91,19 @@ namespace QRTech.Models
             else
                 return null;
         }
+        public static int DriverNullFind(int DriverID)
+        {
+            SqlCommand driverFind = new SqlCommand("select aracID from TBL_Sofor where soforID =@p1", sql.baglanti());
+            driverFind.Parameters.AddWithValue("@p1", DriverID);
+            SqlDataReader dtDriverFind = driverFind.ExecuteReader();
+            if (dtDriverFind.Read())
+            {
+                return Convert.ToInt32(dtDriverFind[0]);
+            }
+            else
+                return 0;
+        }
+
         private static void VehicleList()
         {
             _vehicles.Clear();
@@ -151,7 +184,7 @@ namespace QRTech.Models
                 vehicle.AracMarka = dtVehicle[4].ToString();
                 vehicle.Model = dtVehicle[5].ToString();
                 vehicle.Renk = dtVehicle[6].ToString();
-                if(DBNull.Value.Equals(dtVehicle[7]))
+                if(DBNull.Value.Equals((dtVehicle[7])) )
                 {
                     vehicle.HatNo = 0;
                 }
@@ -185,6 +218,15 @@ namespace QRTech.Models
             }
             
         }
+        public static void NullLineDelete(int aracID)
+        {
+            SqlCommand NullDelete = new SqlCommand("Delete from TBL_Boshat where aracID=@p1 ", sql.baglanti());
+            NullDelete.Parameters.AddWithValue("@p1", aracID);
+            NullDelete.ExecuteNonQuery();
+            sql.baglanti().Close();
+        }
+
+
         public static List<Line> LineListe
         {
             get { LineList(); return _lines; }
@@ -335,15 +377,26 @@ namespace QRTech.Models
         }
         public static void LineDelete(Line Entity)
         {
-            SqlCommand lineDelete = new SqlCommand("delete from TBL_Fiyatlar where fiyatID=(select fiyatID from TBL_Hat where hatID=@p1) ", sql.baglanti());
-            lineDelete.Parameters.AddWithValue("@p1", Entity.HatID);
-            lineDelete.ExecuteNonQuery();
-            sql.baglanti().Close();
-            SqlCommand lineDelete1 = new SqlCommand("delete from TBL_Hat where hatID =@p1) ", sql.baglanti());
-            lineDelete1.Parameters.AddWithValue("@p1", Entity.HatID);
-            lineDelete1.ExecuteNonQuery();
+            SqlCommand nullLine = new SqlCommand("select aracID from TBL_Arac where hatID = @p1 ", sql.baglanti());
+            nullLine.Parameters.AddWithValue("@p1", Entity.HatID);
+            SqlDataReader dtnullLine = nullLine.ExecuteReader();
+            while (dtnullLine.Read())
+            {
+                SqlCommand boshatAdd = new SqlCommand("insert into TBL_Boshat (aracID,ilID) values (@p1,@p2)", sql.baglanti());
+                boshatAdd.Parameters.AddWithValue("@p1", Convert.ToInt32(dtnullLine[0]));
+                boshatAdd.Parameters.AddWithValue("@p2", _admin.ilID);
+                boshatAdd.ExecuteNonQuery();
+                sql.baglanti().Close();
+            }
+
+            SqlCommand lineDelete2 = new SqlCommand("delete from TBL_Hat where hatID =@p1 ", sql.baglanti());
+            lineDelete2.Parameters.AddWithValue("@p1", Entity.HatID);
+            lineDelete2.ExecuteNonQuery();
             sql.baglanti().Close();
         }
+
+
+        
 
         public static void StationAdd(Station Entity)
         {
@@ -374,13 +427,6 @@ namespace QRTech.Models
             StationUpdate.Parameters.AddWithValue("@p4", Entity.enlem);
             StationUpdate.Parameters.AddWithValue("@p5", Entity.boylam);
             StationUpdate.ExecuteNonQuery();
-            sql.baglanti().Close();
-        }
-        public static void StationDelete(Station Entity)
-        {
-            SqlCommand StationDelete = new SqlCommand("delete from TBL_Durak where durakID =@p1", sql.baglanti());
-            StationDelete.Parameters.AddWithValue("@p1", Entity.durakID);
-            StationDelete.ExecuteNonQuery();
             sql.baglanti().Close();
         }
 
@@ -435,7 +481,7 @@ namespace QRTech.Models
 
         public static void VehicleUpdate(Vehicle Entity)
         {
-            SqlCommand VehicleUpdate = new SqlCommand("UPDATE TBL_Arac set plaka = @p2,saseNumarasi =@p3,engelliDestegi=@p4,modelID=(select Mo.modelID from TBL_AracModel Mo inner join TBL_AracMarka Ma  ON Ma.markaID = Mo.markaID where  markaAdi =@p5 and modelAdi =@p6),renkID = (select renkID from TBL_Renk where renk = @p7) where aracID = @p1", sql.baglanti());
+            SqlCommand VehicleUpdate = new SqlCommand("exec aracUpdate @p2,@p3,@p4,@p5,@p6,@p7,@p8,@p1", sql.baglanti());
             VehicleUpdate.Parameters.AddWithValue("@p1", Entity.aracID);
             VehicleUpdate.Parameters.AddWithValue("@p2", Entity.Plaka);
             VehicleUpdate.Parameters.AddWithValue("@p3", Entity.saseNumarasi);
@@ -443,6 +489,7 @@ namespace QRTech.Models
             VehicleUpdate.Parameters.AddWithValue("@p5", Entity.AracMarka);
             VehicleUpdate.Parameters.AddWithValue("@p6", Entity.Model);
             VehicleUpdate.Parameters.AddWithValue("@p7", Entity.Renk);
+            VehicleUpdate.Parameters.AddWithValue("@p8", Entity.HatNo);
             VehicleUpdate.ExecuteNonQuery();
             sql.baglanti().Close();
         }
@@ -453,6 +500,17 @@ namespace QRTech.Models
             VehicleDelete.Parameters.AddWithValue("@p1", Entity.aracID);
             VehicleDelete.ExecuteNonQuery();
             sql.baglanti().Close();
+
+            SqlCommand VehicleDelete2 = new SqlCommand("select soforID from TBL_Sofor where aracID=@p1 ", sql.baglanti());
+            VehicleDelete2.Parameters.AddWithValue("@p1", Entity.aracID);
+            SqlDataReader dtVehicleDelete2 = VehicleDelete2.ExecuteReader();
+            while (dtVehicleDelete2.Read())
+            {
+                SqlCommand VehicleDelete3 = new SqlCommand("update TBL_Sofor set aracID = 0 where soforID=@p2", sql.baglanti());
+                VehicleDelete3.Parameters.AddWithValue("@p2", Convert.ToInt32(dtVehicleDelete2[0]));
+                VehicleDelete3.ExecuteNonQuery();
+                sql.baglanti().Close();
+            }
         }
 
         public static void DriverAdd(Driver Entity)

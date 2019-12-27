@@ -81,29 +81,5 @@ namespace QRTech.Controllers
             return View(station);
         }
 
-        [HttpPost]
-        public ActionResult StationDelete(Station Entity)
-        {
-            int islem = 0;
-            try
-            {
-                AdminDatabase.StationDelete(Entity);
-                ViewBag.islem = 1;
-                Station station = new Station();
-                return View(station);
-            }
-            catch (Exception)
-            {
-                ViewBag.islem = -1;
-                return View(Entity);
-            }
-        }
-
-        public ActionResult StationDelete(int id)
-        {
-            Station station = new Station();
-            station = AdminDatabase.StationFind(id);
-            return View(station);
-        }
     }
 }

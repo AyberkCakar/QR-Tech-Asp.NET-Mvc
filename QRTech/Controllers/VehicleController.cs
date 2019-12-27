@@ -51,12 +51,21 @@ namespace QRTech.Controllers
         public ActionResult VehicleEdit(Vehicle Entity)
         {
             int islem = 0;
-            bool durum = TFuncAdmin.AracGuncelleKontrol(Entity.Plaka, Entity.AracMarka, Entity.Model, Entity.Renk, Entity.saseNumarasi, Entity.HatNo, Entity.aracID);
+            bool durum = TFuncAdmin.AracGuncelleKontrol(Entity.Plaka, Entity.AracMarka, Entity.Model, Entity.Renk, Entity.saseNumarasi,  Entity.aracID);
             try
             {
                 if (durum == true)
                 {
-                    AdminDatabase.VehicleUpdate(Entity);
+                    if(Entity.HatNo==0)
+                    {
+                        AdminDatabase.VehicleUpdate(Entity);
+                    }
+                    else
+                    {
+                        AdminDatabase.VehicleUpdate(Entity);
+                        AdminDatabase.NullLineDelete(Entity.aracID);
+                    }
+
                     ViewBag.islem = 1;
                 }
                 else
