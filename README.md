@@ -10,7 +10,12 @@
 <a href="https://github.com/AyberkCakar">Ayberk Çakar</a>,
 <a href="https://github.com/SefaAkdeniz">İsmail Sefa Akdeniz</a>,
 <a href="https://github.com/DorukanE">Dorukan Eskiçeri</a></p>  
-
+  <h2>
+ Kullanılan Teknolojiler
+ </h2>
+ <h5>Web:  Html, CSS, Boostrap, Asp.Net MVC</h5>
+ <h5>Server:  Node.JS  <a href="https://github.com/AyberkCakar/Nodejs-Mvc-Server">     Github Linki</a></h5>
+ <h5>Veri Tabanı:  MSSQL</h5>
   <h2>
   Proje Amacı
   </h2>
@@ -31,50 +36,38 @@ Bu uygulaması sayesinde kart maliyeti ortadan kalkacaktır
  Örnek - Admin; Yetkili Olduğu İl'de İşlem Yapabilir,Durak Ekleme - Listleme - Güncelleme, Hat Ekleme - Listeleme - Güncelleme - Silme , Araç Ekleme - Listeleme - Güncelleme - Silme , Şoför Ekleme - Listeleme - Güncelleme - Silme ,
  İl Genelinde İndirim Uygulama.
 
-
 </p>
-  <br>
-
   <h2>
   Proje Ekran Görüntüleri
   </h2>
      <h3>
-    <br>
   Kullanıcı Bölümü
   </h3>
-  <br>
   <h4>
   Ana Sayfa
   </h4>
   <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/2.PNG">
-
   <h4>
   Bakiye Yükle
   </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/14.PNG">
-        <br>
   <h4>
   Bilgilerim
   </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/15.PNG">
-     <br>
   <h3>
   Admin Bölümü
   </h3>
-  <br>
   <h4>
 Durak Ekle
 </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/4.PNG">
-       <br>
          <h4>
-
   <h4>
 Durak Listele
   </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/5.PNG">
   <h4>
-
   <h4>
 Hat Ekle  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/3.PNG">
@@ -83,33 +76,25 @@ Hat Ekle  </h4>
   Hat Listele
   </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/1.PNG">
-
-
 <h4>
  İndirim Belirle 
 </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/6.PNG">
-        <br>
         <h4>
 Araç Ekle  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/7.PNG">
-        <br>
                 <h4>
 Araç Listele  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/8.PNG">
-        <br>
                 <h4>
 Araç Güncelle  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/9.PNG">
-        <br>
                 <h4>
 Araç Sil  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/10.PNG">
-        <br>
                 <h4>
 Şoför Ekle  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/12.PNG">
-        <br>        <h4>
+<h4>
 Şoför Listele  </h4>
     <img src="https://github.com/AyberkCakar/QR-Tech-Mvc/blob/master/ss/11.PNG">
-        <br>
